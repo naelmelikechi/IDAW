@@ -4,30 +4,47 @@
 <head>
   <meta charset="utf-8">
   <title>Nael Melikechi</title>
-  <link rel="stylesheet" href="bootstrap-dist/css/bootstrap-reboot.css">
-  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-  <script src="bootstrap-dist/js/bootstrap.bundle.js"></script>
+  <link rel="stylesheet" href="bootstrap-dist/css/bootstrap.css">
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"></script>
+  <script src="bootstrap-dist/js/bootstrap.js"></script>
 </head>
 
 <body>
   <header>
-    <h1>Nael Melikechi</h1>
+    <div class="container">
+      <div class="row justify-content-center">
+        <h1>Nael Melikechi</h1>
+      </div>
+    </div>
+
   </header>
-  <nav>
-    <ul>
-      <li><a href="index.html">Accueil</a></li>
-      <li><a href="cv.html">CV</a></li>
-      <li><a href="projets.html">Projets</a></li>
-    </ul>
-  </nav>
-  <article>
-    <h2>Voici mon CV</h2>
-    <p>Retrouvez-moi sur <a href="https://www.linkedin.com/in/naelmelikechi">LinkedIn</a>.</p>
-  </article>
-  <footer>
-    <p>Site web réalisé dans le cadre de l'UV IDAW à l'IMT Nord Europe par :<br>
-      <a href="mailto:nael.melikechi@etu.imt-nord-europe.fr">nael.melikechi@etu.imt-nord-europe.fr"</a>
-    </p>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-3">
+
+        <nav class="nav-tabs">
+          <ul>
+            <li class="nav-link"><a href="index.html">Accueil</a></li>
+            <li class="nav-link"><a href="cv.html">CV</a></li>
+            <li class="nav-link"><a href="projets.html">Projets</a></li>
+          </ul>
+        </nav>
+      </div>
+      <div class="col grow">
+        <article>
+          <h2>Voici mon CV</h2>
+          <p>Retrouvez-moi sur <a href="https://www.linkedin.com/in/naelmelikechi">LinkedIn</a>.</p>
+        </article>
+      </div>
+    </div>
+  </div>
+  <footer class="card-footer">
+    <p>Site web réalisé dans le cadre de l'UV IDAW à l'IMT Nord Europe par : <a
+        href="mailto:nael.melikechi@etu.imt-nord-europe.fr">nael.melikechi@etu.imt-nord-europe.fr"</a></p>
   </footer>
 </body>
+
 </html>
