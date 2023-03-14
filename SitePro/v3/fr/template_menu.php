@@ -1,5 +1,5 @@
 <?php
-function renderMenuToHTML($currentPageId)
+function renderMenuToHTML($currentPageId, $currentLang)
 {
     // un tableau qui definit la structure du site
     $mymenu = array(
@@ -17,7 +17,7 @@ function renderMenuToHTML($currentPageId)
         } else {
             $activeClass = "";
         }
-        echo '<a href="index.php?page='.$pageId.'" class="nav-link ' . $activeClass . '">' . $title . '</a>';
+        echo '<a href="index.php?page='.$pageId.'&lang='.$currentLang.'" class="nav-link ' . $activeClass . '">' . $title . '</a>';
     
     }
     echo '</div></nav>';

@@ -1,13 +1,21 @@
 <?php
-require_once("template_header.php");
 
+$currentLang = 'fr';
 $currentPageId = 'accueil';
+
 if (isset($_GET['page'])) {
   $currentPageId = $_GET['page'];
 }
+
+if (isset($_GET['lang'])) {
+  $currentLang = $_GET['lang'];
+}
+
+require_once($currentLang . "/template_header.php");
 ?>
 
 <body>
+
   <header class="bg-light">
     <div class="container">
       <div class="row justify-content-center">
@@ -20,18 +28,37 @@ if (isset($_GET['page'])) {
     <img src="files/images/avatar.jpg" alt="avatar" class="img-thumbnail" style="max-width:5%">
   </div>
 
+  <?php $mylang = array(
+    'fr' => array('Francais'),
+    'en' => array('English')
+  );
 
+
+  echo '<nav class="nav nav-pills nav-fill"><div class="nav flex-column nav-pills">';
+  foreach ($mylang as $langID => $langParameters) {
+    $AffichageLang = $langParameters[0];
+    if ($currentLang == $langID) {
+      $activeLang = "active";
+    } else {
+      $activeLang = "";
+    }
+    echo '<a href="index.php?page='.$currentPageId.'&lang='.$langID.'" class="nav-link ' . $activeLang . '">' . $AffichageLang . '</a>';
+
+  }
+  echo '</div></nav>';
+
+  ?>
   <div class="container">
     <div class="row">
       <div class="col-3">
         <?php
-        require_once("template_menu.php");
-        renderMenuToHTML($currentPageId);
+        require_once($currentLang . "/template_menu.php");
+        renderMenuToHTML($currentPageId, $currentLang);
         ?>
       </div>
       <div class="col grow">
         <?php
-        $pageToInclude = $currentPageId . ".php";
+        $pageToInclude = $currentLang . "/" . $currentPageId . ".php";
         if (is_readable($pageToInclude))
           require_once($pageToInclude);
         else
@@ -40,4 +67,4 @@ if (isset($_GET['page'])) {
       </div>
     </div>
   </div>
-  <?php require_once('template_footer.php'); ?>
+  <?php require_once($currentLang . "/template_footer.php"); ?>
