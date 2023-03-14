@@ -16,7 +16,7 @@ function renderMenuToHTML($currentPageId)
         } else {
             $activeClass = "";
         }
-        echo '<a href="index.php?='.$pageId.'" class="nav-link ' . $activeClass . '">' . $title . '</a>';
+        echo '<a href="index.php?page='.$pageId.'" class="nav-link ' . $activeClass . '">' . $title . '</a>';
     
     }
     echo '</div></nav>';
