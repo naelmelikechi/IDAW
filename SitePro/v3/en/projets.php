@@ -1,4 +1,4 @@
 <article>
-  <h2>Voici les differents projets que j'ai réalisé</h2>
-  <p>Voici mon lien <a href="https://github.com/naelmelikechi">GitHub</a>.</p>
+  <h2>Here are the different projects I have done</h2>
+  <p>There is my <a href="https://github.com/naelmelikechi">GitHub</a>.</p>
 </article>

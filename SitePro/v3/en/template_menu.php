@@ -6,7 +6,7 @@ function renderMenuToHTML($currentPageId, $currentLang)
         // idPage titre
         'accueil' => array('Home'),
         'cv' => array('CV'),
-        'projets' => array('Projets'),
+        'projets' => array('Projects'),
         'contact' => array('Contact')
     );
     echo '<nav class="nav nav-pills nav-fill"><div class="nav flex-column nav-pills">';
