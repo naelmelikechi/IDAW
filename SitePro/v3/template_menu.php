@@ -6,7 +6,8 @@ function renderMenuToHTML($currentPageId)
         // idPage titre
         'accueil' => array('Accueil'),
         'cv' => array('CV'),
-        'projets' => array('Projets')
+        'projets' => array('Projets'),
+        'contact' => array('Contact')
     );
     echo '<nav class="nav nav-pills nav-fill"><div class="nav flex-column nav-pills">';
     foreach ($mymenu as $pageId => $pageParameters) {
