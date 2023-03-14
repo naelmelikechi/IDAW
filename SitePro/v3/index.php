@@ -1,4 +1,11 @@
-<?php require_once('template_header.php'); ?>
+<?php
+require_once("template_header.php");
+
+$currentPageId = 'accueil';
+if (isset($_GET['page'])) {
+  $currentPageId = $_GET['page'];
+}
+?>
 
 <body>
   <header class="bg-light">
@@ -13,19 +20,23 @@
     <img src="files/images/avatar.jpg" alt="avatar" class="img-thumbnail" style="max-width:5%">
   </div>
 
+
   <div class="container">
     <div class="row">
       <div class="col-3">
-        <?php 
-          require_once('template_menu.php');
-          renderMenuToHTML('index');
+        <?php
+        require_once("template_menu.php");
+        renderMenuToHTML($currentPageId);
         ?>
       </div>
       <div class="col grow">
-        <article>
-          <h2>Qui suis-je ? </h2>
-          <p>Un étudiant de l'IMT Nord-Europe</p>
-        </article>
+        <?php
+        $pageToInclude = $currentPageId . ".php";
+        if (is_readable($pageToInclude))
+          require_once($pageToInclude);
+        else
+          require_once("error.php");
+        ?>
       </div>
     </div>
   </div>

@@ -1,13 +1,10 @@
-
-
-
 <?php
 function renderMenuToHTML($currentPageId)
 {
     // un tableau qui definit la structure du site
     $mymenu = array(
         // idPage titre
-        'index' => array('Accueil'),
+        'accueil' => array('Accueil'),
         'cv' => array('CV'),
         'projets' => array('Projets')
     );
@@ -19,7 +16,7 @@ function renderMenuToHTML($currentPageId)
         } else {
             $activeClass = "";
         }
-        echo '<a href="' . $pageId . '.php" class="nav-link ' . $activeClass . '">' . $title . '</a>';
+        echo '<a href="index.php?='.$pageId.'" class="nav-link ' . $activeClass . '">' . $title . '</a>';
     
     }
     echo '</div></nav>';
