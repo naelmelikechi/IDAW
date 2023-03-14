@@ -1,4 +1,4 @@
-<?php require_once('template_header.php');?>
+<?php require_once('template_header.php'); ?>
 
 <body>
   <header class="bg-light">
@@ -15,14 +15,7 @@
   <div class="container">
     <div class="row">
       <div class="col-3">
-
-        <nav class="nav nav-pills nav-fill">
-          <div class="nav flex-column nav-pills">
-            <a href="index.php" class="nav-link">Accueil</a>
-            <a href="cv.php" class="nav-link">CV</a>
-            <a  href="projets.php" class="nav-link active">Projets</a>
-          </div>
-        </nav>
+        <?php require_once('template_menu.php'); ?>
       </div>
 
       <div class="col grow">
@@ -33,4 +26,4 @@
       </div>
     </div>
   </div>
-  <?php require_once('template_footer.php');?>
+  <?php require_once('template_footer.php'); ?>
