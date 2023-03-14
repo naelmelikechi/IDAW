@@ -16,7 +16,10 @@
   <div class="container">
     <div class="row">
       <div class="col-3">
-        <?php require_once('template_menu.php'); ?>
+        <?php 
+          require_once('template_menu.php');
+          renderMenuToHTML('index');
+        ?>
       </div>
       <div class="col grow">
         <article>
