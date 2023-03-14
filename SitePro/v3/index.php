@@ -14,6 +14,8 @@ if (isset($_GET['lang'])) {
 require_once($currentLang . "/template_header.php");
 ?>
 
+
+
 <body>
 
   <header class="bg-light">
@@ -24,17 +26,13 @@ require_once($currentLang . "/template_header.php");
     </div>
 
   </header>
-  <div class="text-right  mr-5 pr-3">
-    <img src="files/images/avatar.jpg" alt="avatar" class="img-thumbnail" style="max-width:5%">
-  </div>
-
   <?php $mylang = array(
     'fr' => array('Francais'),
     'en' => array('English')
   );
 
 
-  echo '<nav class="nav nav-pills nav-fill"><div class="nav flex-column nav-pills">';
+  echo '<nav class="nav nav-pills nav-fill"><div class="nav flex-row nav-pills">';
   foreach ($mylang as $langID => $langParameters) {
     $AffichageLang = $langParameters[0];
     if ($currentLang == $langID) {
@@ -48,6 +46,11 @@ require_once($currentLang . "/template_header.php");
   echo '</div></nav>';
 
   ?>
+  <div class="text-right  mr-5 pr-3">
+    <img src="files/images/avatar.jpg" alt="avatar" class="img-thumbnail" style="max-width:8%">
+  </div>
+
+  
   <div class="container">
     <div class="row">
       <div class="col-3">
