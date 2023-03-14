@@ -18,9 +18,9 @@
 
         <nav class="nav nav-pills nav-fill">
           <div class="nav flex-column nav-pills">
-            <a href="index.html" class="nav-link">Accueil</a>
-            <a href="cv.html" class="nav-link">CV</a>
-            <a class="nav-link active" href="projets.html" role="tab" aria-selected="true">Projets</a>
+            <a href="index.php" class="nav-link">Accueil</a>
+            <a href="cv.php" class="nav-link">CV</a>
+            <a class="nav-link active" href="projets.php" role="tab" aria-selected="true">Projets</a>
           </div>
         </nav>
       </div>
