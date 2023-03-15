@@ -1,7 +1,7 @@
 # IDAW
-Bienvenue sur mon dépot GitHub pour l'UV IDAW en P6 à l'IMT Nord-Europe
+*Bienvenue sur mon dépot GitHub pour l'UV IDAW en P6 à l'IMT Nord-Europe*
 
-##SitePro : 
+## SitePro : 
 Site web en HTML CSS (bootstrap) et PHP 
 L'évolution de la V1 à la V2 permet de découvrir le développement en HTML et CSS
 La V3 est la version finale de mon site pro qui contient mon CV, mes différents projets, etc. 
