@@ -1,11 +1,11 @@
 <?php
 /*if (isset($_GET['login']) && isset($_GET['password'])) {
-$login = $_GET['login'];
-$password = $_GET['password'];
-echo "<p>Login : $login.</p>";
-echo "<p>Mot de passe : $password.</p>";
+    $login = $_GET['login'];
+    $password = $_GET['password'];
+    echo "<p>Login : $login.</p>";
+    echo "<p>Mot de passe : $password.</p>";
 } else {
-echo "<p>Login et Password non définis</p>";
+    echo "<p>Login et Password non définis</p>";
 }*/
 
 // on simule une base de données
@@ -31,7 +31,7 @@ if (isset($_POST['login']) && isset($_POST['password'])) {
 if (!$successfullyLogged) {
     echo $errorText;
 } else {
-    echo "<h1>Bienvenue" . $login . "</h1>";
+    echo "<h1>Bienvenue " . $login . "</h1>";
 }
 
 ?>
