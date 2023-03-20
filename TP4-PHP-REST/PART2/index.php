@@ -8,6 +8,7 @@
 
 <body>
 
+    <h1>Tableau des utilisateurs de la base de données</h1>
     <?php
 
     require_once('initPDO.php');
@@ -23,8 +24,24 @@
     }
     echo "</table>";
 
-    $pdo = null;
+    
 
+    ?>
+
+    <form action="index.php" method="POST">
+        <label for="nom">Name :</label>
+        <input type="text" id="nom" name="nom" required>
+        <label for="nom">Email :</label>
+        <input type="text" id="nom" name="nom" required>
+        <input type="submit" value="Ajouter">
+    </form>
+
+    <?php
+    $sql = "INSERT INTO users (name, email) VALUES (?,?)";
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute([$_POST['nom']  , $_POST['email']]);
+    
+    $pdo = null;
     ?>
 
 </body>
