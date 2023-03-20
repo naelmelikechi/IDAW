@@ -1,16 +1,24 @@
 <?php
 require_once('initPDO.php');
-require_once('db_init.php');
+//require_once('db_init.php');
 
-if (isset($_POST['name']) && isset($_POST['email'])) {
+if (isset($_POST['name_user']) && isset($_POST['email_user'])) {
 
     $insert = $pdo->prepare("INSERT INTO users ( name, email) VALUES (:name,:email)");
     $insert->bindParam(':name', $name);
     $insert->bindParam(':email', $email);
-    $name = $_POST['name'];
-    $email = $_POST['email'];
+    $name = $_POST['name_user'];
+    $email = $_POST['email_user'];
     $insert->execute();
 }
+
+if (isset($_GET['idDelete'])) {
+    $id_TODELETE = $_GET['idDelete'];
+    $delete = $pdo->prepare("DELETE FROM users WHERE id = " . $id_TODELETE);
+    $delete->execute();
+}
+
+
 
 $request = $pdo->prepare("select * from users");
 $request->execute();
@@ -32,10 +40,12 @@ $users = $request->fetchAll(PDO::FETCH_OBJ);
             <th>ID</th>
             <th>Name</th>
             <th>Email</th>
+            <th>Action</th>
         </tr>
         <?php
         foreach ($users as $user) {
-            echo "<tr><td>" . $user->id . "</td><td>" . $user->name . "</td><td>" . $user->email . "</td></tr>";
+            echo "<tr><td>" . $user->id . "</td><td>" . $user->name . "</td><td>" . $user->email . "</td>";
+            echo '<td><a href="index.php?idDelete=' . $user->id . '">Supprimer</a></td></tr>';
         }
         ?>
     </table>
@@ -44,11 +54,11 @@ $users = $request->fetchAll(PDO::FETCH_OBJ);
         <table>
             <tr>
                 <th>Nom :</th>
-                <td><input type="text" name="name"></td>
+                <td><input type="text" name="name_user"></td>
             </tr>
             <tr>
                 <th>Mot de passe :</th>
-                <td><input type="text" name="email"></td>
+                <td><input type="text" name="email_user"></td>
             </tr>
             <tr>
                 <th></th>
