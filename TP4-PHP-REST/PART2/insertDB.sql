@@ -1,7 +1,7 @@
 INSERT INTO `users` (`id`, `name`, `email`) VALUES
-(1, 'riri', 'riri@disney.com'),
-(2, 'fifi', 'fifi@disney.com'),
-(3, 'loulou', 'loulou@disney.com'),
-(4, 'nael', 'nael@gmail.com'),
-(5, 'aaaaaaa', 'aaaa@bb.com');
+(1, 'Aaliyah', 'aaliyah@yahoo.com'),
+(2, 'Frank Ocean', 'frank@blonded.com'),
+(3, 'Khali', 'khali@palmer.com'),
+(4, '070Shake', 'dani@gmail.com'),
+(5, 'Laylow', 'laylow@digital.com');
 COMMIT;
