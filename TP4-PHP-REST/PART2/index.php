@@ -23,8 +23,23 @@ if (isset($_GET['idModify'])) {
     $res = $pdo->prepare($req);
     $res->execute();
     $currentUser = $res->fetchAll();
-    $user_name=$currentUser[0]['name'];
-    $user_email=$currentUser[0]['email'];
+    $user_name = $currentUser[0]['name'];
+    $user_email = $currentUser[0]['email'];
+    $modifyForm = true;
+} else {
+    $modifyForm = false;
+}
+
+if (isset($_POST['new_name_user']) && isset($_POST['new_email_user'])) {
+    $new_name = $_POST['new_name_user'];
+    $new_email = $_POST['new_email_user'];
+    $id_TOUPDATE = $id_TOmodif;
+    $update = $pdo->prepare("UPDATE users SET name=:new_name, email=:new_email WHERE id=:id_TOUPDATE");
+    $update->bindParam(':new_name', $new_name);
+    $update->bindParam(':new_email', $new_email);
+    $update->bindParam(':id_TOUPDATE', $id_TOUPDATE);
+    $update->execute();
+    header('Location: index.php');
 }
 
 
@@ -69,7 +84,7 @@ $users = $request->fetchAll(PDO::FETCH_OBJ);
                 <td><input type="text" name="name_user"></td>
             </tr>
             <tr>
-                <th>Mot de passe :</th>
+                <th>Email :</th>
                 <td><input type="text" name="email_user"></td>
             </tr>
             <tr>
@@ -78,26 +93,18 @@ $users = $request->fetchAll(PDO::FETCH_OBJ);
             </tr>
         </table>
     </form>
-
-    <h2>Modifier un utilisateur :</h2>
-    <form id="modify_user" action="" method="GET">
-        <table>
-            <tr>
-                <th>Nom :</th>
-                <td><input type="text" name="new_name_user"></td>
-            </tr>
-            <tr>
-                <th>Mot de passe :</th>
-                <td><input type="text" name="new_email_user"></td>
-            </tr>
-            <tr>
-                <th></th>
-                <td><input type="submit" value="Modifier Utilisateur" /></td>
-            </tr>
-        </table>
-    </form>
-
     <?php
+
+    if ($modifyForm) {
+        echo '<h2>Modifier un utilisateur</h2>';
+        echo '<form method="post">';
+        echo '<label for="new_name_user">Nom :</label>';
+        echo '<input type="text" name="new_name_user" value="' . $user_name . '">';
+        echo '<label for="new_email_user">Email :</label>';
+        echo '<input type="email" name="new_email_user" value="' . $user_email . '">';
+        echo '<input type="submit" value="Modifier">';
+        echo '</form>';
+    }
     $pdo = NULL;
 
     ?>
