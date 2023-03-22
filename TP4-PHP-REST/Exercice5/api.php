@@ -46,8 +46,7 @@ if ($method == 'DELETE') {
 }
 
 if ($method == 'PUT') {
-    parse_str(file_get_contents("php://input"),$post_vars);
-    $data = json_decode($post_vars['data'], true);
+    $data = json_decode(file_get_contents('php://input'), true);
     $result = updateUserById($_GET['id'], $data['name'], $data['email']);
     if ($result) {
         echo json_encode(['success' => 'User updated successfully']);
