@@ -40,21 +40,104 @@
                 <input type="text" class="form-control" id="inputNom">
             </div>
         </div>
-        ...
+
+        <div class="form-group row">
+            <label for="inputPrenom" class="col-sm-2 col-form-label">Prénom</label>
+            <div class="col-sm-3">
+                <input type="text" class="form-control" id="inputPrenom">
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label for="inputDateNaissance" class="col-sm-2 col-form-label">Date de naissance</label>
+            <div class="col-sm-3">
+                <input type="date" class="form-control" id="inputDateNaissance">
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label for="inputAimeLeCours" class="col-sm-2 col-form-label">Aime le cours</label>
+            <div class="col-sm-3">
+                <input type="checkbox" class="form-control" id="inputAimeLeCours">
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label for="inputRemarques" class="col-sm-2 col-form-label">Remarques</label>
+            <div class="col-sm-3">
+                <textarea class="form-control" id="inputRemarques"></textarea>
+            </div>
+        </div>
+
         <div class="form-group row">
             <span class="col-sm-2"></span>
             <div class="col-sm-2">
                 <button type="submit" class="btn btn-primary form-control">Submit</button>
             </div>
         </div>
+
     </form>
+
     <script>
+        function deleteUser(row) {
+            row.parentNode.removeChild(row);
+        }
+
+
+
+        function editUser(row) {
+            let nom = row.children[0].textContent;
+            let prenom = row.children[1].textContent;
+            let dateNaissance = row.children[2].textContent;
+            let aimeLeCours = row.children[3].textContent === "Oui";
+            let remarques = row.children[4].textContent;
+
+            $("#inputNom").val(nom);
+            $("#inputPrenom").val(prenom);
+            $("#inputDateNaissance").val(dateNaissance);
+            $("#inputAimeLeCours").prop("checked", aimeLeCours);
+            $("#inputRemarques").val(remarques);
+
+            row.parentNode.removeChild(row);
+
+            $("#addStudentForm button[type='submit']").text("Edit");
+
+            $("#addStudentForm").data("rowIndex", row.rowIndex);
+
+
+        }
+        function cleanForm() {
+            $("#inputNom").val("");
+            $("#inputPrenom").val("");
+            $("#inputDateNaissance").val("");
+            $("#inputAimeLeCours").prop("checked", false);
+            $("#inputRemarques").val("");
+            $("#addStudentForm button[type='submit']").text("Submit");
+        }
+
+
+
+
         function onFormSubmit() {
-            // prevent the form to be sent to the server
             event.preventDefault();
             let nom = $("#inputNom").val();
-            $("#studentsTableBody").append(`<tr><td>${nom}</td><td></td><td></td><td></td><td></td><td></td><td></td></tr>`);
+            let prenom = $("#inputPrenom").val();
+            let dateNaissance = $("#inputDateNaissance").val();
+            let aimeLeCours = $("#inputAimeLeCours").prop("checked");
+            let remarques = $("#inputRemarques").val();
+
+            if (nom == "") {
+                $("#inputNom").before('<div>Ce champ est requis.</div>');
+                return;
+            }
+
+            let newRow = `<tr><td>${nom}</td><td>${prenom}</td><td>${dateNaissance}</td><td>${aimeLeCours ? "Oui" : "Non"}</td><td>${remarques}</td><td><a href="#" onclick="editUser(this.parentNode.parentNode);">Edit</a>&nbsp<a href="#" onclick="deleteUser(this.parentNode.parentNode);">Delete</a></td></tr>`;
+            $("#studentsTableBody").append(newRow);
+            cleanForm();
         }
+
+
+
     </script>
 </body>
 
