@@ -1,0 +1,82 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f2f2f2;
+  }
+  
+  h1 {
+    text-align: center;
+  }
+  
+  h2 {
+    margin-top: 50px;
+  }
+  
+  table {
+    margin: 0 auto;
+    border-collapse: collapse;
+    width: 80%;
+    background-color: white;
+  }
+  
+  th, td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  th {
+    background-color: #aec6cf;
+    color: white;
+  }
+  
+  input[type=text], input[type=email], input[type=submit] {
+    width: 20%;
+    padding: 12px;
+    margin: 6px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+  
+  input[type=submit] {
+    background-color: #aec6cf;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .delete-user {
+    background-color: #f19898;
+    color: white;
+    border: none;
+    cursor: pointer;
+    padding: 8px 12px;
+    border-radius: 4px;
+  }
+
+  .edit-user {
+    background-color: #aec6cf;
+    color: white;
+    border: none;
+    cursor: pointer;
+    padding: 8px 12px;
+    border-radius: 4px;
+  }
+  
+  .delete-user:hover {
+    background-color: #ee6c6c;
+  }
+
+  .edit-user:hover {
+    background-color: #8abdcf;
+  }
+  input[type=submit]:hover{
+    background-color: #8abdcf;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+
+  
+  
