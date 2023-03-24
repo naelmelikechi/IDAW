@@ -1,5 +1,6 @@
 Le code fourni implémente une API RESTful pour la gestion des utilisateurs (users). Voici les différents endpoints de cette API :
-#ENDPOINTS
+
+# ENDPOINTS
 
 ## Endpoint pour récupérer tous les utilisateurs
 - URL : `/api.php`
