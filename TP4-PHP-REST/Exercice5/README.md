@@ -1,11 +1,11 @@
 Le code fourni implémente une API RESTful pour la gestion des utilisateurs (users). Voici les différents endpoints de cette API :
 
-#Endpoint pour récupérer tous les utilisateurs
+# Endpoint pour récupérer tous les utilisateurs
 URL : '/api.php'
 Méthode HTTP : 'GET'
 Paramètres : aucun
 Réponse : un tableau JSON contenant tous les utilisateurs enregistrés, chaque utilisateur étant représenté par un objet JSON ayant les propriétés id, name, et email.
-#Endpoint pour récupérer un utilisateur spécifique
+# Endpoint pour récupérer un utilisateur spécifique
 URL : '/api.php?id={id}'
 Méthode HTTP : GET
 Paramètres :
