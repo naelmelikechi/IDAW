@@ -1,5 +1,5 @@
 # ENDPOINTS
-Le code fourni implémente une API RESTful pour la gestion des utilisateurs (users). Voici les différents endpoints de cette API :
+Le code fourni implémente une API REST pour la gestion des utilisateurs (users). Voici les différents endpoints de cette API :
 ## Récupérer tous les utilisateurs
 - URL : `/api.php`
 - Méthode HTTP : `GET`
