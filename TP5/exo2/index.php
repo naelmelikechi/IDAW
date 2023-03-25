@@ -29,6 +29,17 @@
         <input type="email" id="email" name="email">
         <input type="submit" value="Ajouter">
     </form>
+
+    <form id="edit-user-form" style="display: none;">
+        <h2>Modifier un utilisateur</h2>
+        <input type="hidden" id="idEdit" name="idEdit">
+        <label for="nameEdit">Nom:</label>
+        <input type="text" id="nameEdit" name="nameEdit">
+        <label for="emailEdit">Email:</label>
+        <input type="emailEdit" id="emailEdit" name="emailEdit">
+        <input type="submit" value="Enregistrer">
+    </form>
+
 </body>
 <script>
 
@@ -62,10 +73,58 @@
             });
         }
 
+        function getUserByID(userID) {
+            $.ajax({
+                url: api_url + 'api.php?id=' + userID,
+                type: 'GET',
+                dataType: 'json',
+            }).done(function (response) {
+                $('#edit-user-form').show();
+                $('#idEdit').val(response.id);
+                $('#nameEdit').val(response.name);
+                $('#emailEdit').val(response.email);
+            }).fail(function (error) {
+                alert("La requête s'est terminée en échec. Infos : " + JSON.stringify(error));
+            });
+        }
+
+
+        function addUser(name, email) {
+            $.ajax({
+                url: api_url + 'api.php',
+                type: 'POST',
+                data: JSON.stringify({ "name": name, "email": email }),
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
+            }).done(function (response) {
+                console.log('Utilisateur ajouté avec succès !');
+            }).fail(function (error) {
+                alert("La requête s'est terminée en échec. Infos : " + JSON.stringify(error));
+            });
+        }
+
+
         $(document).on('click', '.delete-user', function () {
             var userID = $(this).data('id');
             userDelete(userID);
         });
+
+        $(document).on('click', '.edit-user', function () {
+            var userID = $(this).data('id');
+            getUserByID(userID);
+        });
+
+        $(document).on('click', '#add-user-form input[type="submit"]', function () {
+            var name = $('#name').val();
+            var email = $('#email').val();
+            addUser(name, email);
+        });
+
+
+
+
+
+
 
 
 
