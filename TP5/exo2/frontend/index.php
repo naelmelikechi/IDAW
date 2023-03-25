@@ -9,16 +9,6 @@
 </head>
 
 <body>
-    <form id="edit-user-form" style="display: none;">
-        <h2>Modifier un utilisateur</h2>
-        <input type="hidden" id="idEdit" name="idEdit">
-        <label for="nameEdit">Nom:</label>
-        <input type="text" id="nameEdit" name="nameEdit">
-        <label for="emailEdit">Email:</label>
-        <input type="email" id="emailEdit" name="emailEdit">
-        <input type="submit" value="Enregistrer">
-    </form>
-
     <h1>Liste des utilisateurs</h1>
     <table id="users-table">
         <thead>
@@ -31,6 +21,15 @@
         <tbody>
         </tbody>
     </table>
+    <form id="edit-user-form" style="display: none;">
+        <h2>Modifier un utilisateur</h2>
+        <input type="hidden" id="idEdit" name="idEdit">
+        <label for="nameEdit">Nom:</label>
+        <input type="text" id="nameEdit" name="nameEdit">
+        <label for="emailEdit">Email:</label>
+        <input type="email" id="emailEdit" name="emailEdit">
+        <input type="submit" value="Enregistrer">
+    </form>
     <h2>Ajouter un utilisateur</h2>
     <form id="add-user-form">
         <label for="name">Nom:</label>
