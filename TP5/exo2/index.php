@@ -103,6 +103,21 @@
             });
         }
 
+        function editUserByID(userID, name, email) {
+            $.ajax({
+                url: api_url + 'api.php?id=' + userID,
+                type: 'PUT',
+                data: JSON.stringify({ "name": name, "email": email }),
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
+            }).done(function (response) {
+                $('#edit-user-form').hide();
+                console.log('Utilisateur modifié avec succès !');
+            }).fail(function (error) {
+                alert("La requête s'est terminée en échec. Infos : " + JSON.stringify(error));
+            });
+        }
+
 
         $(document).on('click', '.delete-user', function () {
             var userID = $(this).data('id');
@@ -120,11 +135,12 @@
             addUser(name, email);
         });
 
-
-
-
-
-
+        $(document).on('click', '#edit-user-form input[type="submit"]', function () {
+            var id = $('#idEdit').val();
+            var name = $('#nameEdit').val();
+            var email = $('#emailEdit').val();
+            editUserByID(id, name, email);
+        });
 
 
 
