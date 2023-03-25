@@ -9,6 +9,16 @@
 </head>
 
 <body>
+    <form id="edit-user-form" style="display: none;">
+        <h2>Modifier un utilisateur</h2>
+        <input type="hidden" id="idEdit" name="idEdit">
+        <label for="nameEdit">Nom:</label>
+        <input type="text" id="nameEdit" name="nameEdit">
+        <label for="emailEdit">Email:</label>
+        <input type="email" id="emailEdit" name="emailEdit">
+        <input type="submit" value="Enregistrer">
+    </form>
+
     <h1>Liste des utilisateurs</h1>
     <table id="users-table">
         <thead>
@@ -30,15 +40,7 @@
         <input type="submit" value="Ajouter">
     </form>
 
-    <form id="edit-user-form" style="display: none;">
-        <h2>Modifier un utilisateur</h2>
-        <input type="hidden" id="idEdit" name="idEdit">
-        <label for="nameEdit">Nom:</label>
-        <input type="text" id="nameEdit" name="nameEdit">
-        <label for="emailEdit">Email:</label>
-        <input type="emailEdit" id="emailEdit" name="emailEdit">
-        <input type="submit" value="Enregistrer">
-    </form>
+
 
 </body>
 <script>
@@ -141,9 +143,6 @@
             var email = $('#emailEdit').val();
             editUserByID(id, name, email);
         });
-
-
-
         showUsers();
     });
 
