@@ -17,16 +17,16 @@ L’architecture de l'application est conforme à l'architecture REST et donc d�
 ### Jalon 1 : Le backend
 Le backend est constitué du code PHP qui reçoit des requêtes HTTP et retourne des réponses HTTP contenant du JSON conformément à une API construite. Il est organisé dans le dossier `backend` et contient les fichiers suivants :
 
-`sql/database.sql` : script SQL de création des tables avec insertion des données
-`config.php` : contient des variables globales d'initialisation de votre backend
-`aliments.php` : implémente les endpoints CRUD pour les aliments
-`tests` : dossier contenant les tests unitaires pour les endpoints
-`README.md` : description de votre API REST
+- `sql/database.sql` : script SQL de création des tables avec insertion des données
+- `config.php` : contient des variables globales d'initialisation de votre backend
+- `aliments.php` : implémente les endpoints CRUD pour les aliments
+- `tests` : dossier contenant les tests unitaires pour les endpoints
+- `README.md` : description de votre API REST
 
 ### Jalon 2 : Le frontend
 Le frontend est constitué du code HTML, CSS, JS et PHP qui permet d’envoyer la partie cliente de l’application au navigateur. Il est organisé dans le dossier `frontend` et contient les fichiers suivants :
 
-`js` : dossier contenant les fichiers JavaScript pour le frontend
-`css` : dossier contenant les fichiers CSS pour le frontend
-`imgs` : dossier contenant les images pour le frontend
-`config.php` : contient des variables gloables d'initialiation de votre
+- `js` : dossier contenant les fichiers JavaScript pour le frontend
+- `css` : dossier contenant les fichiers CSS pour le frontend
+- `imgs` : dossier contenant les images pour le frontend
+- `config.php` : contient des variables gloables d'initialiation de votre
