@@ -5,14 +5,17 @@
     <meta charset="utf-8">
     <title>Utilisateurs</title>
     <script src="https://code.jquery.com/jquery-3.4.1.min.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css">
+    <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
     <link rel="stylesheet" href="css/styles.css">
 </head>
 
 <body>
-    <h1>Liste des  utilisateurs</h1>
-    <table id="users-table">
+    <h1>Liste des utilisateurs</h1>
+    <table id="users-table" class="display">
         <thead>
             <tr>
+                <th>ID</th>
                 <th>Nom</th>
                 <th>Email</th>
                 <th>Actions</th>
@@ -38,12 +41,8 @@
         <input type="email" id="email" name="email">
         <input type="submit" value="Ajouter">
     </form>
-
-
-
 </body>
 <script>
-
     $(document).ready(function () {
         <?php require_once("config.php") ?>
         let api_url = "<?php echo $API_LINK ?>";
@@ -54,8 +53,19 @@
                 type: 'GET',
                 dataType: 'json',
             }).done(function (response) {
-                $.each(response, function (index, user) {
-                    $('#users-table').append('<tr><td>' + user.name + '</td><td>' + user.email + '</td><td><button class="delete-user" data-id="' + user.id + '">Delete</button>&nbsp<button class="edit-user" data-id="' + user.id + '">Edit</button></td></tr>');
+                $('#users-table').DataTable({
+                    data: response,
+                    columns: [
+                        { data: 'id' },
+                        { data: 'name' },
+                        { data: 'email' },
+                        {
+                            data: null,
+                            render: function (data, type, row) {
+                                return '<button class="delete-user" data-id="' + data.id + '">Delete</button>&nbsp<button class="edit-user" data-id="' + data.id + '">Edit</button>';
+                            }
+                        }
+                    ]
                 });
             }).fail(function (error) {
                 alert("La requête s'est terminée en échec. Infos : " + JSON.stringify(error));
@@ -68,8 +78,9 @@
                 type: 'DELETE',
                 dataType: 'json',
             }).done(function (response) {
-                $('button.delete-user[data-id="' + userID + '"]').closest('tr').remove();
+                $('#users-table').DataTable().row($('button.delete-user[data-id="' + userID + '"]').closest('tr')).remove().draw();
             }).fail(function (error) {
+
                 alert("La requête s'est terminée en échec. Infos : " + JSON.stringify(error));
             });
         }
@@ -89,7 +100,6 @@
             });
         }
 
-
         function addUser(name, email) {
             $.ajax({
                 url: api_url + 'api.php',
@@ -98,6 +108,7 @@
                 contentType: 'application/json; charset=utf-8',
                 dataType: 'json',
             }).done(function (response) {
+                $('#users-table').DataTable().row.add(response).draw();
                 console.log('Utilisateur ajouté avec succès !');
             }).fail(function (error) {
                 alert("La requête s'est terminée en échec. Infos : " + JSON.stringify(error));
@@ -113,12 +124,14 @@
                 dataType: 'json',
             }).done(function (response) {
                 $('#edit-user-form').hide();
+                var table = $('#users-table').DataTable();
+                var row = table.row($('button.edit-user[data-id="' + userID + '"]').closest('tr'));
+                row.data(response).draw();
                 console.log('Utilisateur modifié avec succès !');
             }).fail(function (error) {
                 alert("La requête s'est terminée en échec. Infos : " + JSON.stringify(error));
             });
         }
-
 
         $(document).on('click', '.delete-user', function () {
             var userID = $(this).data('id');
@@ -142,9 +155,9 @@
             var email = $('#emailEdit').val();
             editUserByID(id, name, email);
         });
+
         showUsers();
     });
-
 </script>
 
 </html>
