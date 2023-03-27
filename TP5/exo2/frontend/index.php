@@ -9,7 +9,7 @@
 </head>
 
 <body>
-    <h1>Liste des utilisateurs</h1>
+    <h1>Liste des  utilisateurs</h1>
     <table id="users-table">
         <thead>
             <tr>
