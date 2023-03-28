@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : mar. 28 mars 2023 à 14:07
+-- Généré le : mar. 28 mars 2023 à 15:21
 -- Version du serveur : 8.0.31
 -- Version de PHP : 8.0.26
 
@@ -2400,16 +2400,17 @@ CREATE TABLE IF NOT EXISTS `consommations` (
   PRIMARY KEY (`ID_CONSOMMATION`),
   KEY `ID_UTILISATEUR` (`ID_UTILISATEUR`),
   KEY `ID_ALIMENT` (`ID_ALIMENT`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Déchargement des données de la table `consommations`
 --
 
 INSERT INTO `consommations` (`ID_CONSOMMATION`, `ID_ALIMENT`, `ID_UTILISATEUR`, `QUANTITE`, `DATE`, `HEURE`) VALUES
-(1, 2315, 1, 300, '2023-03-28', '0000-00-00 00:00:00.000000'),
-(2, 2315, 1, 250, '2023-03-28', '0000-00-00 00:00:00.000000'),
-(3, 2315, 1, 500, '2023-03-28', '0000-00-00 00:00:00.000000');
+(1, 2315, 1, 300, '2023-03-29', '2023-03-29 12:30:00.000000'),
+(2, 2315, 1, 250, '2023-03-28', '2023-03-28 12:42:31.346000'),
+(3, 2315, 1, 500, '2023-03-28', '2023-03-28 22:42:42.985000'),
+(4, 2315, 5, 200, '2023-03-15', '2023-03-15 17:16:39.000000');
 
 -- --------------------------------------------------------
 
