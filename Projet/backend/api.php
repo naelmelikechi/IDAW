@@ -4,7 +4,7 @@ require_once('functionsAPI.php');
 $method = $_SERVER['REQUEST_METHOD'];
 $path = $_SERVER['PATH_INFO'];
 
-echo $path;
+// echo $path;
 
 if ($method == 'GET') {
 
