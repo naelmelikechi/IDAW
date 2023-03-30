@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : mar. 28 mars 2023 à 15:21
+-- Généré le : jeu. 30 mars 2023 à 08:55
 -- Version du serveur : 8.0.31
 -- Version de PHP : 8.0.26
 
@@ -9765,6 +9765,7 @@ CREATE TABLE IF NOT EXISTS `utilisateurs` (
   `POIDS` int NOT NULL,
   `SEXE` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `NIVEAU_ACTIVITE_SPORTIVE` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `PASSWORD` varchar(30) COLLATE utf8mb4_general_ci NOT NULL,
   PRIMARY KEY (`ID_UTILISATEUR`),
   KEY `SEXE` (`SEXE`),
   KEY `NIVEAU_ACTIVITE_SPORTIVE` (`NIVEAU_ACTIVITE_SPORTIVE`)
@@ -9774,44 +9775,44 @@ CREATE TABLE IF NOT EXISTS `utilisateurs` (
 -- Déchargement des données de la table `utilisateurs`
 --
 
-INSERT INTO `utilisateurs` (`ID_UTILISATEUR`, `EMAIL`, `NOM`, `PRENOM`, `AGE`, `POIDS`, `SEXE`, `NIVEAU_ACTIVITE_SPORTIVE`) VALUES
-(1, 'william.nguyen@etu.imt-lille-douai.fr', 'NGUYEN', 'William', 22, 65, 'Homme', 'Faible'),
-(2, 'alexis.poirot@etu.imt-lille-douai.fr', 'POIROT', 'Alexis', 25, 55, 'Homme', 'Modéré'),
-(3, 'antoine.lambert@etu.imt-lille-douai.fr', 'LAMBERT', 'Antoine', 51, 76, 'Homme', 'Élevé'),
-(4, 'cedric.prast@etu.imt-lille-douai.fr', 'PRAST', 'Cédric', 45, 87, 'Homme', 'Faible'),
-(5, 'anthony.gouthier@etu.imt-lille-douai.fr', 'GOUTHIER', 'Anthony', 21, 67, 'Homme', 'Modéré'),
-(6, 'johan.gaudin@etu.imt-lille-douai.fr', 'GAUDIN', 'Johan', 18, 98, 'Homme', 'Élevé'),
-(7, 'guillaume.faure@etu.imt-lille-douai.fr', 'FAURE', 'Guillaume', 33, 110, 'Homme', 'Faible'),
-(8, 'hatim.hebboul@etu.imt-lille-douai.fr', 'HEBBOUL', 'Hatim', 45, 88, 'Homme', 'Modéré'),
-(9, 'armand.sumo@etu.imt-lille-douai.fr', 'SUMO MOUDJIE TCHAMABE', 'Armand', 67, 77, 'Homme', 'Élevé'),
-(10, 'mathis.jolivel@etu.imt-lille-douai.fr', 'JOLIVEL', 'Mathis', 32, 90, 'Homme', 'Faible'),
-(11, 'ezzat.al.zahabi@etu.imt-lille-douai.fr', 'AL ZAHABI', 'Ezzat', 23, 65, 'Homme', 'Modéré'),
-(12, 'gaelle.erhart@etu.imt-lille-douai.fr', 'ERHART', 'Gaelle', 45, 65, 'Femme', 'Élevé'),
-(13, 'lucas.arib@etu.imt-lille-douai.fr', 'ARIB', 'Lucas', 78, 76, 'Homme', 'Faible'),
-(14, 'hugo.lim@etu.imt-lille-douai.fr', 'LIM', 'Hugo', 87, 87, 'Homme', 'Modéré'),
-(15, 'sacha.sicoli@etu.imt-lille-douai.fr', 'SICOLI', 'Sacha', 45, 67, 'Homme', 'Élevé'),
-(16, 'emil.perouse@etu.imt-lille-douai.fr', 'PEROUSE', 'Emil', 49, 93, 'Homme', 'Faible'),
-(17, 'lea.grumiaux@etu.imt-lille-douai.fr', 'GRUMIAUX', 'Léa', 30, 84, 'Femme', 'Modéré'),
-(18, 'pierre.martin@etu.imt-lille-douai.fr', 'MARTIN', 'Pierre', 20, 85, 'Homme', 'Élevé'),
-(19, 'kanlanfaye.djamoine@etu.imt-lille-douai.fr', 'DJAMOINE', 'Kanlanfaye', 40, 77, 'Homme', 'Faible'),
-(20, 'tanguy.feenstra@etu.imt-lille-douai.fr', 'FEENSTRA', 'Tanguy', 50, 78, 'Homme', 'Modéré'),
-(21, 'maxime.de.veyrac@etu.imt-lille-douai.fr', 'DE VEYRAC', 'Maxime', 63, 79, 'Homme', 'Élevé'),
-(22, 'mekki.ben.hamidouche@etu.imt-lille-douai.fr', 'BEN HAMIDOUCHE', 'Mekki', 54, 71, 'Homme', 'Faible'),
-(23, 'julia.zink@etu.imt-lille-douai.fr', 'ZINK', 'Julia', 23, 90, 'Femme', 'Modéré'),
-(24, 'alexandre.favreau@etu.imt-lille-douai.fr', 'FAVREAU', 'Alexandre', 45, 80, 'Homme', 'Élevé'),
-(25, 'nilavan.deva@etu.imt-lille-douai.fr', 'DEVA', 'Nilavan', 33, 70, 'Homme', 'Faible'),
-(26, 'sofia.rodriguez@gmail.com', 'RODRIGUEZ', 'Sofia ', 23, 57, 'Femme', 'Modéré'),
-(27, 'emily.chang@hotmail.com', 'CHANG', 'Emily', 42, 68, 'Femme', 'Élevé'),
-(28, 'clara.martin@yahoo.com', 'MARTIN', 'Clara', 57, 75, 'Femme', 'Faible'),
-(29, 'aurora.sanchez@gmail.com', 'SANCHEZ', 'Aurora', 30, 59, 'Femme', 'Modéré'),
-(30, 'isabella.gomez@hotmail.com', 'GOMEZ', 'Isabella ', 65, 72, 'Femme', 'Élevé'),
-(31, 'victoria.lee@gmail.com', 'LEE', 'Victoria ', 29, 66, 'Femme', 'Faible'),
-(32, 'juliette.dupont@yahoo.com', 'DUPONT', 'Juliette ', 49, 58, 'Femme', 'Modéré'),
-(33, 'jasmine.kim@hotmail.com', 'KIM', 'Jasmine ', 21, 54, 'Femme', 'Élevé'),
-(34, 'bianca.moreau@gmail.com', 'MOREAU', 'Bianca', 36, 81, 'Femme', 'Faible'),
-(35, 'olivia.tremblay@yahoo.com', 'TREMBLAY', 'Olivia ', 78, 62, 'Femme', 'Modéré'),
-(36, 'luc.fabresse@imt-nord-europe.fr', 'FABRESSE', 'Luc', 42, 75, 'Homme', 'Modéré'),
-(37, 'remy.pinot@imt-nord-europe.fr', 'PINOT', 'Rémy', 45, 76, 'Homme', 'Modéré');
+INSERT INTO `utilisateurs` (`ID_UTILISATEUR`, `EMAIL`, `NOM`, `PRENOM`, `AGE`, `POIDS`, `SEXE`, `NIVEAU_ACTIVITE_SPORTIVE`, `PASSWORD`) VALUES 
+(1, 'william.nguyen@etu.imt-lille-douai.fr', 'NGUYEN', 'William', 22, 65, 'Homme', 'Faible', 'X9vB8WxT2n'),
+(2, 'alexis.poirot@etu.imt-lille-douai.fr', 'POIROT', 'Alexis', 25, 55, 'Homme', 'Modéré', 'kD1fYtC7jPQo'),
+(3, 'antoine.lambert@etu.imt-lille-douai.fr', 'LAMBERT', 'Antoine', 51, 76, 'Homme', 'Élevé', 'eZ6nLbN2hA'),
+(4, 'cedric.prast@etu.imt-lille-douai.fr', 'PRAST', 'Cédric', 45, 87, 'Homme', 'Faible', 'rJ0qVpU3kG'),
+(5, 'anthony.gouthier@etu.imt-lille-douai.fr', 'GOUTHIER', 'Anthony', 21, 67, 'Homme', 'Modéré', 'tN9vB4xJ8z'),
+(6, 'johan.gaudin@etu.imt-lille-douai.fr', 'GAUDIN', 'Johan', 18, 98, 'Homme', 'Élevé', 'dM7eZ1uF2aL'),
+(7, 'guillaume.faure@etu.imt-lille-douai.fr', 'FAURE', 'Guillaume', 33, 110, 'Homme', 'Faible', 'gS4jK1uR0vX'),
+(8, 'hatim.hebboul@etu.imt-lille-douai.fr', 'HEBBOUL', 'Hatim', 45, 88, 'Homme', 'Modéré', 'bF8sZ1jK6xH'),
+(9, 'armand.sumo@etu.imt-lille-douai.fr', 'SUMO MOUDJIE TCHAMABE', 'Armand', 67, 77, 'Homme', 'Élevé', 'kT7pJ3rL6xUo'),
+(10, 'mathis.jolivel@etu.imt-lille-douai.fr', 'JOLIVEL', 'Mathis', 32, 90, 'Homme', 'Faible', 'hV2fC5wP7jN'),
+(11, 'ezzat.al.zahabi@etu.imt-lille-douai.fr', 'AL ZAHABI', 'Ezzat', 23, 65, 'Homme', 'Modéré', 'aR6nU1bT9jWq'),
+(12, 'gaelle.erhart@etu.imt-lille-douai.fr', 'ERHART', 'Gaelle', 45, 65, 'Femme', 'Élevé', 'cF8vX7hJ2tQ'),
+(13, 'lucas.arib@etu.imt-lille-douai.fr', 'ARIB', 'Lucas', 78, 76, 'Homme', 'Faible', 'zN4dV7tR6xUjWq'),
+(14, 'hugo.lim@etu.imt-lille-douai.fr', 'LIM', 'Hugo', 87, 87, 'Homme', 'Modéré', 'xJ8sN2mZ6pT'),
+(15, 'sacha.sicoli@etu.imt-lille-douai.fr', 'SICOLI', 'Sacha', 45, 67, 'Homme', 'Élevé', 'bD7gR9xT3kVn'),
+(16, 'emil.perouse@etu.imt-lille-douai.fr', 'PEROUSE', 'Emil', 49, 93, 'Homme', 'Faible', 'wZ6sE9aC5nVj'),
+(17, 'lea.grumiaux@etu.imt-lille-douai.fr', 'GRUMIAUX', 'Léa', 30, 84, 'Femme', 'Modéré', 'mG4fR6pN7sL'),
+(18, 'pierre.martin@etu.imt-lille-douai.fr', 'MARTIN', 'Pierre', 20, 85, 'Homme', 'Élevé', 'lD1nR4kV7jP'),
+(19, 'kanlanfaye.djamoine@etu.imt-lille-douai.fr', 'DJAMOINE', 'Kanlanfaye', 40, 77, 'Homme', 'Faible', 'pC3fS5nW8zU'),
+(20, 'tanguy.feenstra@etu.imt-lille-douai.fr', 'FEENSTRA', 'Tanguy', 50, 78, 'Homme', 'Modéré', 'vM1nT7hY6jPqWz'),
+(21, 'maxime.de.veyrac@etu.imt-lille-douai.fr', 'DE VEYRAC', 'Maxime', 63, 79, 'Homme', 'Élevé', 'gN2tR7mQ1hA'),
+(22, 'mekki.ben.hamidouche@etu.imt-lille-douai.fr', 'BEN HAMIDOUCHE', 'Mekki', 54, 71, 'Homme', 'Faible', 'yJ4kV6bU2sL'),
+(23, 'julia.zink@etu.imt-lille-douai.fr', 'ZINK', 'Julia', 23, 90, 'Femme', 'Modéré', 'cD2nR4mK8vP'),
+(24, 'alexandre.favreau@etu.imt-lille-douai.fr', 'FAVREAU', 'Alexandre', 45, 80, 'Homme', 'Élevé', 'nH5jK7tR9zU'),
+(25, 'nilavan.deva@etu.imt-lille-douai.fr', 'DEVA', 'Nilavan', 33, 70, 'Homme', 'Faible', 'tN2mR6sV8jP'),
+(26, 'sofia.rodriguez@gmail.com', 'RODRIGUEZ', 'Sofia ', 23, 57, 'Femme', 'Modéré', 'bC3fR1nM6vT'),
+(27, 'emily.chang@hotmail.com', 'CHANG', 'Emily', 42, 68, 'Femme', 'Élevé', 'hN5jK9mZ2vBqWx'),
+(28, 'clara.martin@yahoo.com', 'MARTIN', 'Clara', 57, 75, 'Femme', 'Faible', 'gD2nR8tK6vP'),
+(29, 'aurora.sanchez@gmail.com', 'SANCHEZ', 'Aurora', 30, 59, 'Femme', 'Modéré', 'tN9mR6kV1jZ'),
+(30, 'isabella.gomez@hotmail.com', 'GOMEZ', 'Isabella ', 65, 72, 'Femme', 'Élevé', 'vM1tR7nZ2jPqW'),
+(31, 'victoria.lee@gmail.com', 'LEE', 'Victoria ', 29, 66, 'Femme', 'Faible', 'nH5jR9mZ7vT'),
+(32, 'juliette.dupont@yahoo.com', 'DUPONT', 'Juliette ', 49, 58, 'Femme', 'Modéré', 'lC3fR6nV9kP'),
+(33, 'jasmine.kim@hotmail.com', 'KIM', 'Jasmine ', 21, 54, 'Femme', 'Élevé', 'rN5mK9tZ2jV'),
+(34, 'bianca.moreau@gmail.com', 'MOREAU', 'Bianca', 36, 81, 'Femme', 'Faible', 'hJ8sK5nT9zL'),
+(35, 'olivia.tremblay@yahoo.com', 'TREMBLAY', 'Olivia ', 78, 62, 'Femme', 'Modéré', 'pC2nM5tV6jQ'),
+(36, 'luc.fabresse@imt-nord-europe.fr', 'FABRESSE', 'Luc', 42, 75, 'Homme', 'Modéré', 'zH9sM3nC1vTq'),
+(37, 'remy.pinot@imt-nord-europe.fr', 'PINOT', 'Rémy', 45, 76, 'Homme', 'Modéré', 'jD2nM8sK9vPqWz');
 
 --
 -- Contraintes pour les tables déchargées
