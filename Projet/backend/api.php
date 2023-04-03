@@ -51,7 +51,7 @@ if ($method == 'GET') {
                 echo json_encode($consommations);
             }
             break;
-        case'/consommation/userspecifique':
+        case '/consommation/userspecifique':
             if (isset($_GET['id'])) {
                 $consommation = getConsommationByUserID($_GET['id']);
                 if ($consommation) {
@@ -65,10 +65,20 @@ if ($method == 'GET') {
                 echo json_encode($consommations);
             }
             break;
+        case '/consommations/calories':
+            if (isset($_GET['id'])) {
+                $total_calories = getTotalCaloriesByUserIdAndDate($_GET['id'], date('Y-m-d'));
+                echo json_encode(['total_calories' => $total_calories]);
+            } else {
+                header('HTTP/1.1 400 Bad Request');
+                echo json_encode(['error' => 'User ID parameter is missing']);
+            }
+            break;
         default:
             header('HTTP/1.1 404 Not Found');
             echo json_encode(['error' => 'Invalid URL']);
             break;
+
     }
 
 

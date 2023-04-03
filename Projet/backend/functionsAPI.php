@@ -169,7 +169,8 @@ function getConsommationById($id)
     return $consommation;
 }
 
-function createConsommation($id_aliment, $id_utilisateur,$quantite, $date, $heure){
+function createConsommation($id_aliment, $id_utilisateur, $quantite, $date, $heure)
+{
     global $pdo;
     $request = $pdo->prepare("insert into consommations (id_aliment, id_utilisateur, quantite, date, heure) values (:id_aliment, :id_utilisateur, :quantite, :date, :heure)");
     $request->bindParam(':id_aliment', $id_aliment);
@@ -190,7 +191,8 @@ function createConsommation($id_aliment, $id_utilisateur,$quantite, $date, $heur
     }
 }
 
-function updateConsommationById($id_consommations, $id_aliment, $id_utilisateur,$quantite, $date, $heure){
+function updateConsommationById($id_consommations, $id_aliment, $id_utilisateur, $quantite, $date, $heure)
+{
     global $pdo;
     $request = $pdo->prepare("update consommations set id_aliment = :id_aliment, id_utilisateur = :id_utilisateur, quantite = :quantite, date = :date, heure = :heure where id_consommation = :id_consommations");
     $request->bindParam(':id_consommations', $id_consommations);
@@ -220,5 +222,16 @@ function deleteConsommationById($id)
     $result = $request->execute();
     return $result;
 }
+
+function getTotalCaloriesByUserIdAndDate($id_utilisateur, $date)
+{
+    global $pdo;
+    $request = $pdo->prepare("SELECT SUM(aliments.CALORIES_100G * consommations.QUANTITE / 100) as total_calories FROM consommations INNER JOIN aliments ON aliments.ID_ALIMENT = consommations.ID_ALIMENT WHERE consommations.ID_UTILISATEUR = :id_utilisateur AND consommations.DATE = :date");
+    $request->bindParam(':id_utilisateur', $id_utilisateur);
+    $request->bindParam(':date', $date);
+    $result = $request->execute();
+    return $result;
+}
+
 
 ?>
