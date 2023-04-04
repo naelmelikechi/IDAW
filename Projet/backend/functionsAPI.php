@@ -223,6 +223,8 @@ function deleteConsommationById($id)
     return $result;
 }
 
+
+
 function getTotalCaloriesByUserIdAndDate($id_utilisateur, $date)
 {
     global $pdo;
@@ -230,6 +232,19 @@ function getTotalCaloriesByUserIdAndDate($id_utilisateur, $date)
     $request->bindParam(':id_utilisateur', $id_utilisateur);
     $request->bindParam(':date', $date);
     $result = $request->execute();
+    return $result;
+}
+function getRecommandationCaloriesByUserId($user_id)
+{
+    global $pdo;
+    $sql = "SELECT APPORT_CALORIQUE_JOURNALIER FROM profil_recommandation
+            JOIN utilisateurs ON profil_recommandation.ID_PROFIL = utilisateurs.ID_UTILISATEUR
+            WHERE utilisateurs.ID_UTILISATEUR = :user_id";
+    $request = $pdo->prepare($sql);
+    $request->bindParam(':user_id', $user_id, PDO::PARAM_INT);
+    $request->execute();
+    $result = $request->fetch(PDO::FETCH_ASSOC);
+
     return $result;
 }
 
