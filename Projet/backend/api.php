@@ -67,7 +67,8 @@ if ($method == 'GET') {
             break;
         case '/consommations/calories':
             if (isset($_GET['id'])) {
-                $total_calories = getTotalCaloriesByUserIdAndDate($_GET['id'], date('Y-m-d'));
+                $date = isset($_GET['date']) ? $_GET['date'] : date('Y-m-d');
+                $total_calories = getTotalCaloriesByUserIdAndDate($_GET['id'], $date);
                 echo json_encode(['total_calories' => $total_calories]);
             } else {
                 header('HTTP/1.1 400 Bad Request');

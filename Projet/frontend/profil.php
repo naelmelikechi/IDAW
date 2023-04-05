@@ -10,76 +10,55 @@
 </head>
 
 <body>
-    <h1>Liste des utilisateurs</h1>
-    <table id="users-table" class="display">
-        <thead>
-            <tr>
-                <th>Email</th>
-                <th>Nom</th>
-                <th>Prenom</th>
-                <th>Age</th>
-                <th>Poids</th>
-                <th>Sexe</th>
-                <th>Niveau activité sportive</th>
-                <th>Action</th>
-            </tr>
-        </thead>
-        <tbody>
-        </tbody>
-    </table>
-    <!-- <form id="edit-user-form" style="display: none;">
-        <h2>Modifier un utilisateur</h2>
-        <input type="hidden" id="idEdit" name="idEdit">
-        <label for="nameEdit">Nom:</label>
-        <input type="text" id="nameEdit" name="nameEdit">
-        <label for="emailEdit">Email:</label>
-        <input type="email" id="emailEdit" name="emailEdit">
-        <input type="submit" value="Enregistrer">
-    </form>
-    <h2>Ajouter un utilisateur</h2>
-    <form id="add-user-form">
-        <label for="name">Nom:</label>
-        <input type="text" id="name" name="name">
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="email">
-        <input type="submit" value="Ajouter">
-    </form> -->
+    <h1>Dashboard des consommations</h1>
+    <div>
+        <label for="progress">Progress:</label>
+        <progress id="progress" max="100" value="0"></progress>
+    </div>
 </body>
 <script>
     $(document).ready(function () {
-        <?php require_once("config.php") ?>
-        let api_url = "<?php echo $API_LINK ?>";
-        function getUserCalories() {
-            $.ajax({
-                url: api_url + '/consommations/calories?id=1',
-                type: 'GET',
-                dataType: 'json',
-            }).done(function (response) {
-                let apportCalorique = response.total_calories;
-                alert(apportCalorique);
-            }).fail(function (error) {
-                alert("La requête s'est terminée en échec. Infos : " + JSON.stringify(error));
-            });
+    <?php require_once("config.php") ?>
+    let api_url = "<?php echo $API_LINK ?>";
+
+    function getUserCalories() {
+        return $.ajax({
+            url: api_url + '/consommations/calories?id=1&date=2023-03-29',
+            type: 'GET',
+            dataType: 'json',
+        });
+    }
+
+    function getUserRecommendation() {
+        return $.ajax({
+            url: api_url + '/recommandations/calories?id=1',
+            type: 'GET',
+            dataType: 'json',
+        });
+    }
+
+    function updateProgressBar(consumed, recommended) {
+        console.log("consumed:", consumed);
+        console.log("recommended:", recommended);
+        let progressValue;
+        if (consumed > 0 && recommended > 0 && isFinite(consumed) && isFinite(recommended)) {
+            progressValue = (consumed / recommended) * 100;
+        } else {
+            progressValue = 0;
         }
+        console.log("progressValue:", progressValue);
+        $('#progress').val(progressValue);
+    }
 
-        function getUserRecommendation() {
-            $.ajax({
-                url: api_url + '/recommandations/calories?id=1',
-                type: 'GET',
-                dataType: 'json',
-            }).done(function (response) {
-                let apportCaloriqueRecommendation = response.APPORT_CALORIQUE_JOURNALIER;
-                alert(apportCaloriqueRecommendation);
-            }).fail(function (error) {
-                alert("La requête s'est terminée en échec. Infos : " + JSON.stringify(error));
-            });
-        }
-        getUserCalories();
-        getUserRecommendation();
-
-
-    
+    $.when(getUserCalories(), getUserRecommendation()).done(function (caloriesResponse, recommendationResponse) {
+        let consumedCalories = caloriesResponse[0].total_calories;
+        let recommendedCalories = recommendationResponse[0].APPORT_CALORIQUE_JOURNALIER;
+        updateProgressBar(consumedCalories, recommendedCalories);
+    }).fail(function (error) {
+        alert("La requête s'est terminée en échec. Infos : " + JSON.stringify(error));
     });
+});
+
 </script>
 
 </html>

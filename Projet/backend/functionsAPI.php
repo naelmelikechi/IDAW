@@ -228,11 +228,14 @@ function deleteConsommationById($id)
 function getTotalCaloriesByUserIdAndDate($id_utilisateur, $date)
 {
     global $pdo;
-    $request = $pdo->prepare("SELECT SUM(aliments.CALORIES_100G * consommations.QUANTITE / 100) as total_calories FROM consommations INNER JOIN aliments ON aliments.ID_ALIMENT = consommations.ID_ALIMENT WHERE consommations.ID_UTILISATEUR = :id_utilisateur AND consommations.DATE = :date");
+    $sql = "SELECT COALESCE(SUM(aliments.CALORIES_100G * consommations.QUANTITE / 100), 0) as total_calories FROM consommations INNER JOIN aliments ON aliments.ID_ALIMENT = consommations.ID_ALIMENT WHERE consommations.ID_UTILISATEUR = :id_utilisateur AND consommations.DATE = :date";
+    $request = $pdo->prepare($sql);
     $request->bindParam(':id_utilisateur', $id_utilisateur);
     $request->bindParam(':date', $date);
-    $result = $request->execute();
-    return $result;
+    // var_dump($sql, $id_utilisateur, $date); // Debugging statement
+    $request->execute();
+    $result = $request->fetch(PDO::FETCH_ASSOC);
+    return $result['total_calories'];
 }
 function getRecommandationCaloriesByUserId($user_id)
 {
