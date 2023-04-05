@@ -24,8 +24,8 @@
             <?php require_once("config.php") ?>
             let api_url = "<?php echo $API_LINK ?>";
 
-            let userId = 1;
-            let date = "2023-03-29";
+            let userId = 36;
+            let date = "2023-04-05";
 
             function getUserCalories() {
                 return $.ajax({
@@ -52,10 +52,15 @@
                 } else {
                     progressValue = 0;
                 }
-                $('#progress').val(progressValue);
+
                 $('#consumed').text(consumed.toFixed(0));
                 $('#recommended').text(recommended.toFixed(0));
+
+                $('#progress').animate({
+                    'value': progressValue
+                }, 800);
             }
+
             $.when(getUserCalories(), getUserRecommendation()).done(function (caloriesResponse, recommendationResponse) {
                 let consumedCalories = caloriesResponse[0].total_calories;
                 let recommendedCalories = recommendationResponse[0].APPORT_CALORIQUE_JOURNALIER;
