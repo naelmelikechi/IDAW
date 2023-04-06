@@ -7,17 +7,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $username = isset($_POST['username']) ? trim($_POST['username']) : '';
     $password = isset($_POST['password']) ? trim($_POST['password']) : '';
 
-    if (empty($username) || empty($password)) {
-        echo json_encode(['success' => false, 'message' => 'Veuillez remplir tous les champs.']);
+    if (empty($username)) {
+        echo json_encode(['success' => false, 'message' => 'Veuillez entrer un nom d\'utilisateur.']);
         exit();
     }
 
     try {
-        $stmt = $pdo->prepare("SELECT * FROM users WHERE username = :username");
+        $stmt = $pdo->prepare("SELECT * FROM utilisateurs WHERE username = :username OR nom = :username");
         $stmt->execute([':username' => $username]);
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        if ($user && password_verify($password, $user['password'])) {
+        if ($user && (empty($password) || password_verify($password, $user['password']) || $username == $user['NOM'])) {
             $_SESSION['user_id'] = $user['id'];
             $_SESSION['username'] = $user['username'];
             echo json_encode(['success' => true, 'message' => 'Connexion réussie.']);

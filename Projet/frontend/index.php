@@ -1,3 +1,13 @@
+<?php
+require_once 'templates/template_menu.php';
+
+
+$currentPage = isset($_GET['page']) ? $_GET['page'] : 'index';
+renderMenuToHTML($currentPage);
+
+?>
+
+
 <!DOCTYPE html>
 <html>
 
