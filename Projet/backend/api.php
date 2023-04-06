@@ -65,6 +65,20 @@ if ($method == 'GET') {
                 echo json_encode($consommations);
             }
             break;
+        case '/consommation/id_date':
+            if (isset($_GET['id'])) {
+                $consommation = getConsommationByIdAndDate($_GET['id'], $_GET['date']);
+                if ($consommation) {
+                    echo json_encode($consommation);
+                } else {
+                    header('HTTP/1.1 404 Not Found');
+                    echo json_encode(['error' => 'Consommations not found']);
+                }
+            } else {
+                $consommations = getAllConsommations();
+                echo json_encode($consommations);
+            }
+            break;
         case '/consommations/calories':
             if (isset($_GET['id'])) {
                 $date = isset($_GET['date']) ? $_GET['date'] : date('Y-m-d');

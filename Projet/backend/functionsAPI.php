@@ -169,6 +169,23 @@ function getConsommationById($id)
     return $consommation;
 }
 
+function getConsommationByIdAndDate($id, $date)
+{
+    global $pdo;
+    $request = $pdo->prepare("
+        SELECT c.*, a.LIBELLE_ALIMENT 
+        FROM consommations c 
+        JOIN aliments a ON c.ID_ALIMENT = a.ID_ALIMENT 
+        WHERE c.ID_UTILISATEUR = :id AND c.DATE = :date
+    ");
+    $request->bindParam(':id', $id);
+    $request->bindParam(':date', $date);
+    $request->execute();
+    $consommation = $request->fetchAll(PDO::FETCH_OBJ);
+    return $consommation;
+}
+
+
 function createConsommation($id_aliment, $id_utilisateur, $quantite, $date, $heure)
 {
     global $pdo;
