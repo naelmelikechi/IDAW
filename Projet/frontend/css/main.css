@@ -1,0 +1,18 @@
+.conteneur-flex{
+  display: flex;
+  flex-flow: wrap;
+  align-items:center;
+  justify-content: space-around;
+  align-content: space-around;
+  width: 100%;
+  box-sizing: border-box;
+  background-color: #17a2b8;
+}
+
+.element-flex{
+    flex: 1 1 50px;
+    width: 40%;
+    height: 40%;
+    box-sizing: border-box;
+    margin: 10px;
+}
