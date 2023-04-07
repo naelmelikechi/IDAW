@@ -1,3 +1,14 @@
+<?php
+require_once 'templates/template_header.php';
+require_once 'templates/template_menu.php';
+
+
+$currentPage = 'dashboard';
+renderMenuToHTML($currentPage);
+
+?>
+
+
 <!DOCTYPE html>
 <html>
 

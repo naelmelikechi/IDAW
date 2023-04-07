@@ -1,8 +1,9 @@
 <?php
+require_once 'templates/template_header.php';
 require_once 'templates/template_menu.php';
 
 
-$currentPage = isset($_GET['page']) ? $_GET['page'] : 'index';
+$currentPage = 'index';
 renderMenuToHTML($currentPage);
 
 ?>
@@ -16,6 +17,7 @@ renderMenuToHTML($currentPage);
     <title>Utilisateurs</title>
     <script src="https://code.jquery.com/jquery-3.4.1.min.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" type="text/css" href="css/main.css">
     <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
 </head>
 
