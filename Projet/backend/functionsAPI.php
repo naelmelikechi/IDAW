@@ -268,5 +268,16 @@ function getRecommandationCaloriesByUserId($user_id)
     return $result;
 }
 
+function loginUser($email, $password)
+{
+    global $pdo;
+    $request = $pdo->prepare("select * from utilisateurs where email = :email and password = :password");
+    $request->bindParam(':email', $email);
+    $request->bindParam(':password', $password);
+    $request->execute();
+    $user = $request->fetch(PDO::FETCH_OBJ);
+    return ($user);
+}
+
 
 ?>

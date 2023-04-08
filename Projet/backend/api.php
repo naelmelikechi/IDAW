@@ -9,6 +9,18 @@ $path = $_SERVER['PATH_INFO'];
 if ($method == 'GET') {
 
     switch ($path) {
+        case '/login':
+            session_start(); // Start the session
+            $login = loginUser($_GET['email'], $_GET['password']);
+            if ($login) {
+                $_SESSION['ID_UTILISATEUR'] = $login->ID_UTILISATEUR;
+                header('HTTP/1.1 200 OK');
+                echo json_encode($login);
+            } else {
+                header('HTTP/1.1 400 Bad Request');
+                echo json_encode(['error' => 'Could not login user']);
+            }
+            break;
         case '/utilisateurs':
             if (isset($_GET['id'])) {
                 $user = getUserById($_GET['id']);
@@ -70,13 +82,7 @@ if ($method == 'GET') {
                 $consommation = getConsommationByIdAndDate($_GET['id'], $_GET['date']);
                 if ($consommation) {
                     echo json_encode($consommation);
-                } else {
-                    header('HTTP/1.1 404 Not Found');
-                    echo json_encode(['error' => 'Consommations not found']);
                 }
-            } else {
-                $consommations = getAllConsommations();
-                echo json_encode($consommations);
             }
             break;
         case '/consommations/calories':
@@ -115,13 +121,10 @@ if ($method == 'GET') {
 
 
 }
-
 if ($method == 'POST') {
-
     switch ($path) {
         case '/utilisateurs':
             $data = json_decode(utf8_encode(file_get_contents('php://input')), true);
-            print_r($data);
             $user = createUser($data['email'], $data['nom'], $data['prenom'], $data['age'], $data['poids'], $data['sexe'], $data['niveau_activite_sportive']);
             if ($user) {
                 header('HTTP/1.1 201 Created');
@@ -159,6 +162,7 @@ if ($method == 'POST') {
             break;
     }
 }
+
 
 if ($method == 'DELETE') {
 

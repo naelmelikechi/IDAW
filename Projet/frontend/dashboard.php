@@ -1,13 +1,17 @@
 <?php
+session_start();
 require_once 'templates/template_header.php';
 require_once 'templates/template_menu.php';
+require_once 'config.php';
 
+if (!isset($_SESSION['ID_UTILISATEUR'])) {
+    header("Location: index.php");
+    exit;
+}
 
-$currentPage = 'dashboard';
-renderMenuToHTML($currentPage);
-
+$user_id = $_SESSION['ID_UTILISATEUR'];
+$API_LINK = $API_LINK;
 ?>
-
 
 <!DOCTYPE html>
 <html>
@@ -22,6 +26,10 @@ renderMenuToHTML($currentPage);
 </head>
 
 <body>
+    <?php
+    $currentPage = 'dashboard';
+    renderMenuToHTML($currentPage);
+    ?>
     <h1>Dashboard de vos consommations</h1>
     <h2 id="welcome-message">Bonjour</h2>
     <div class="date-container">
@@ -45,15 +53,13 @@ renderMenuToHTML($currentPage);
         </thead>
     </table>
 
-</body>
-
-<script>
-    $(document).ready(function () {
-        <?php require_once("config.php") ?>
+    <script>
         let api_url = "<?php echo $API_LINK ?>";
-
-        let userId = 36;
+        let userId = <?php echo $user_id ?>;
         let date = new Date().toISOString().slice(0, 10);
+
+
+
 
         $('#date-selector').val(date);
 
@@ -88,27 +94,28 @@ renderMenuToHTML($currentPage);
                 url: api_url + '/consommation/id_date?id=' + userId + '&date=' + date,
                 type: 'GET',
                 dataType: 'json',
-            }).done(function (response) {
+            }).always(function (response) {
                 let consommations = response;
                 let dataTableData = [];
 
-                for (let i = 0; i < consommations.length; i++) {
-                    let consommation = consommations[i];
-                    dataTableData.push({
-                        "LIBELLE_ALIMENT": consommation.LIBELLE_ALIMENT,
-                        "QUANTITE": consommation.QUANTITE,
-                        "DATE": consommation.DATE,
-                        "HEURE": consommation.HEURE
-                    });
+                if (consommations && consommations.length > 0) {
+                    for (let i = 0; i < consommations.length; i++) {
+                        let consommation = consommations[i];
+                        dataTableData.push({
+                            "LIBELLE_ALIMENT": consommation.LIBELLE_ALIMENT,
+                            "QUANTITE": consommation.QUANTITE,
+                            "DATE": consommation.DATE,
+                            "HEURE": consommation.HEURE.slice(11, 16)
+                        });
+                    }
                 }
 
-                consommationsTable.clear(); // clear existing data
-                consommationsTable.rows.add(dataTableData); // add new data
-                consommationsTable.draw(); // redraw table
-            }).fail(function (error) {
-                alert("La requête s'est terminée en échec. Infos : " + JSON.stringify(error));
+                consommationsTable.clear().rows.add(dataTableData).draw();
             });
         }
+
+
+
 
 
         function updateProgressBar(consumed, recommended) {
@@ -164,8 +171,6 @@ renderMenuToHTML($currentPage);
         getUserByID();
         getUserConsommation();
 
-    });
-</script>
-
+    </script>
 
 </html>
