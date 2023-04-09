@@ -15,18 +15,6 @@ $currentPage = 'aliments';
 renderMenuToHTML($currentPage);
 ?>
 
-
-<!DOCTYPE html>
-<html>
-
-<head>
-    <meta charset="utf-8">
-    <title>Ajouter une consommation</title>
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css">
-    <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
-</head>
-
 <body>
     <h1>Ajouter une consommation</h1>
 

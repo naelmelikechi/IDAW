@@ -59,7 +59,7 @@ h1 {
   text-align: center;
 }
 
-.conteneur-flex{
+.conteneur-flex {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -108,7 +108,8 @@ h1 {
   margin: 0;
 }
 
-#login-form {
+#login-form,
+#add-consommation-form {
   background-color: white;
   border-radius: 5px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
@@ -117,13 +118,15 @@ h1 {
   padding: 20px;
 }
 
-#login-form label {
+#login-form label,
+#add-consommation-form label {
   display: block;
   font-weight: bold;
   margin-bottom: 5px;
 }
 
-#login-form input {
+#login-form input,
+#add-consommation-form input {
   border: 1px solid #ccc;
   border-radius: 4px;
   box-sizing: border-box;
@@ -133,7 +136,8 @@ h1 {
   width: 100%;
 }
 
-#login-form input[type="submit"] {
+#login-form input[type="submit"],
+#add-consommation-form input[type="submit"] {
   background-color: #17a2b8;
   border: none;
   color: white;
@@ -144,7 +148,8 @@ h1 {
   width: 100%;
 }
 
-#login-form input[type="submit"]:hover {
+#login-form input[type="submit"]:hover,
+#add-consommation-form input[type="submit"]:hover {
   background-color: #45a049;
 }
 
