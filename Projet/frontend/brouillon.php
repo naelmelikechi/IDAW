@@ -39,7 +39,7 @@ renderMenuToHTML($currentPage);
         <tbody>
         </tbody>
     </table>
-    <!-- <form id="edit-user-form" style="display: none;">
+    <form id="edit-user-form" style="display: none;">
         <h2>Modifier un utilisateur</h2>
         <input type="hidden" id="idEdit" name="idEdit">
         <label for="nameEdit">Nom:</label>
@@ -55,7 +55,7 @@ renderMenuToHTML($currentPage);
         <label for="email">Email:</label>
         <input type="email" id="email" name="email">
         <input type="submit" value="Ajouter">
-    </form> -->
+    </form>
 </body>
 <script>
     $(document).ready(function () {
@@ -104,53 +104,53 @@ renderMenuToHTML($currentPage);
             });
         }
 
-        // function getUserByID(userID) {
-        //     $.ajax({
-        //         url: api_url + 'api.php/utilisateurs?id=' + userID,
-        //         type: 'GET',
-        //         dataType: 'json',
-        //     }).done(function (response) {
-        //         $('#edit-user-form').show();
-        //         $('#idEdit').val(response.id);
-        //         $('#nameEdit').val(response.name);
-        //         $('#emailEdit').val(response.email);
-        //     }).fail(function (error) {
-        //         alert("La requête s'est terminée en échec. Infos : " + JSON.stringify(error));
-        //     });
-        // }
+        function getUserByID(userID) {
+            $.ajax({
+                url: api_url + 'api.php/utilisateurs?id=' + userID,
+                type: 'GET',
+                dataType: 'json',
+            }).done(function (response) {
+                $('#edit-user-form').show();
+                $('#idEdit').val(response.id);
+                $('#nameEdit').val(response.name);
+                $('#emailEdit').val(response.email);
+            }).fail(function (error) {
+                alert("La requête s'est terminée en échec. Infos : " + JSON.stringify(error));
+            });
+        }
 
-        // function addUser(name, email) {
-        //     $.ajax({
-        //         url: api_url + 'api.php/utilisateurs',
-        //         type: 'POST',
-        //         data: JSON.stringify({ "name": name, "email": email }),
-        //         contentType: 'application/json; charset=utf-8',
-        //         dataType: 'json',
-        //     }).done(function (response) {
-        //         $('#users-table').DataTable().row.add(response).draw();
-        //         console.log('Utilisateur ajouté avec succès !');
-        //     }).fail(function (error) {
-        //         alert("La requête s'est terminée en échec. Infos : " + JSON.stringify(error));
-        //     });
-        // }
+        function addUser(name, email) {
+            $.ajax({
+                url: api_url + 'api.php/utilisateurs',
+                type: 'POST',
+                data: JSON.stringify({ "name": name, "email": email }),
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
+            }).done(function (response) {
+                $('#users-table').DataTable().row.add(response).draw();
+                console.log('Utilisateur ajouté avec succès !');
+            }).fail(function (error) {
+                alert("La requête s'est terminée en échec. Infos : " + JSON.stringify(error));
+            });
+        }
 
-        // function editUserByID(userID, name, email) {
-        //     $.ajax({
-        //         url: api_url + 'api.php/utilisateurs?id=' + userID,
-        //         type: 'PUT',
-        //         data: JSON.stringify({ "name": name, "email": email }),
-        //         contentType: 'application/json; charset=utf-8',
-        //         dataType: 'json',
-        //     }).done(function (response) {
-        //         $('#edit-user-form').hide();
-        //         var table = $('#users-table').DataTable();
-        //         var row = table.row($('button.edit-user[data-id="' + userID + '"]').closest('tr'));
-        //         row.data(response).draw();
-        //         console.log('Utilisateur modifié avec succès !');
-        //     }).fail(function (error) {
-        //         alert("La requête s'est terminée en échec. Infos : " + JSON.stringify(error));
-        //     });
-        // }
+        function editUserByID(userID, name, email) {
+            $.ajax({
+                url: api_url + 'api.php/utilisateurs?id=' + userID,
+                type: 'PUT',
+                data: JSON.stringify({ "name": name, "email": email }),
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
+            }).done(function (response) {
+                $('#edit-user-form').hide();
+                var table = $('#users-table').DataTable();
+                var row = table.row($('button.edit-user[data-id="' + userID + '"]').closest('tr'));
+                row.data(response).draw();
+                console.log('Utilisateur modifié avec succès !');
+            }).fail(function (error) {
+                alert("La requête s'est terminée en échec. Infos : " + JSON.stringify(error));
+            });
+        }
 
 
         $(document).on('click', '.delete-user', function () {
@@ -159,23 +159,23 @@ renderMenuToHTML($currentPage);
         });
 
 
-        // $(document).on('click', '.edit-user', function () {
-        //     var userID = $(this).data('id');
-        //     getUserByID(userID);
-        // });
+        $(document).on('click', '.edit-user', function () {
+            var userID = $(this).data('id');
+            getUserByID(userID);
+        });
 
-        // $(document).on('click', '#add-user-form input[type="submit"]', function () {
-        //     var name = $('#name').val();
-        //     var email = $('#email').val();
-        //     addUser(name, email);
-        // });
+        $(document).on('click', '#add-user-form input[type="submit"]', function () {
+            var name = $('#name').val();
+            var email = $('#email').val();
+            addUser(name, email);
+        });
 
-        // $(document).on('click', '#edit-user-form input[type="submit"]', function () {
-        //     var id = $('#idEdit').val();
-        //     var name = $('#nameEdit').val();
-        //     var email = $('#emailEdit').val();
-        //     editUserByID(id, name, email);
-        // });
+        $(document).on('click', '#edit-user-form input[type="submit"]', function () {
+            var id = $('#idEdit').val();
+            var name = $('#nameEdit').val();
+            var email = $('#emailEdit').val();
+            editUserByID(id, name, email);
+        });
 
         showUsers();
     });
