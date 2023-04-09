@@ -40,7 +40,6 @@ renderMenuToHTML($currentPage);
         let api_url = "<?php echo $API_LINK ?>";
         let userId = <?php echo $user_id ?>;
         let date = new Date().toISOString().slice(0, 10);
-
         function getUserByID() {
             $.ajax({
                 url: api_url + '/utilisateurs?id=' + userId,
@@ -66,11 +65,11 @@ renderMenuToHTML($currentPage);
         let recommendationData = [];
         let labels = [];
 
-        const currentDate = new Date();
-        for (let i = 6; i >= 0; i--) {
-            const pastDate = new Date(currentDate.getTime() - (i * 24 * 60 * 60 * 1000));
-            const pastDateString = pastDate.toISOString().slice(0, 10);
-            labels.push(pastDateString);
+                const currentDate = new Date();
+                for (let i = 6; i >= 0; i--) {
+                    const pastDate = new Date(currentDate.getTime() - (i * 24 * 60 * 60 * 1000));
+                    const pastDateString = pastDate.toISOString().slice(0, 10);
+                    labels.push(pastDateString);
 
             // Trouver les données pour la date actuelle en utilisant la propriété DATE
             const dailyData = response.find(d => d.DATE === pastDateString);
@@ -96,51 +95,52 @@ renderMenuToHTML($currentPage);
         function displayIndicators(consumptionData, recommendationData) {
             let totalConsumption = consumptionData.reduce((a, b) => a + b, 0);
             let avgConsumption = totalConsumption / consumptionData.length;
-            let recommendedIntake = recommendationData[0]; // Supposons que la recommandation soit la même pour tous les jours
+            let recommendedIntake = recommendationData[0];
 
             $('#total-consumption').text(totalConsumption.toFixed(2));
             $('#avg-consumption').text(avgConsumption.toFixed(2));
             $('#recommended-intake').text(recommendedIntake.toFixed(2));
-    }
+        }
 
-    function displayConsumptionChart(labels, consumptionData, recommendationData) {
-        const ctx = document.getElementById('consumptionChart').getContext('2d');
-        const chart = new Chart(ctx, {
-            type: 'line',
-            data: {
-                labels: labels,
-                datasets: [
-                    {
-                        label: 'Consommation',
-                        data: consumptionData,
-                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                        borderColor: 'rgba(75, 192, 192, 1)',
-                        borderWidth: 2,
-                        tension: 0.1
-                    },
-                    {
-                        label: 'Recommandation',
-                        data: recommendationData,
-                        backgroundColor: 'rgba(255, 99, 132, 0.2)',
-                        borderColor: 'rgba(255, 99, 132, 1)',
-                        borderWidth: 2,
-                        tension: 0.1
-                    }
-                ]
-            },
-            options: {
-                scales: {
-                    y: {
-                        beginAtZero: true
+        function displayConsumptionChart(labels, consumptionData, recommendationData) {
+            const ctx = document.getElementById('consumptionChart').getContext('2d');
+            const chart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [
+                        {
+                            label: 'Consommation',
+                            data: consumptionData,
+                            backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                            borderColor: 'rgba(75, 192, 192, 1)',
+                            borderWidth: 2,
+                            tension: 0.1
+                        },
+                        {
+                            label: 'Recommandation',
+                            data: recommendationData,
+                            backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                            borderColor: 'rgba(255, 99, 132, 1)',
+                            borderWidth: 2,
+                            tension: 0.1
+                        }
+                    ]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
                     }
                 }
-            }
-        });
-    }
+            });
+        }
 
-    getUserByID();
-    getConsumptionData();
-</script>
+        getUserByID();
+        getConsumptionData();
+    </script>
 
 </body>
+
 </html>
