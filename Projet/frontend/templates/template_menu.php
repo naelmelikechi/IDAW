@@ -6,6 +6,7 @@ function renderMenuToHTML($currentPage){
         'aliments' => array('Aliments', 'aliments.php'),
         'journal' =>  array('Profil', 'profil.php'), 
         'dashboard' => array('Dashboard', 'dashboard.php'),
+        'logout' => array('Se déconnecter', 'logout.php'),
     );
     
     foreach ($mymenu as $pageId => $pageParameters){
