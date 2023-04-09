@@ -22,11 +22,18 @@ renderMenuToHTML($currentPage);
 
     <section>
         <h2>Indicateurs pour la période (7 derniers jours) :</h2>
+        <div id="indicators">
+            <p>Consommation totale : <span id="total-consumption"></span> kcal</p>
+            <p>Consommation moyenne par jour : <span id="avg-consumption"></span> kcal</p>
+            <p>Recommandation moyenne par jour : <span id="recommended-intake"></span> kcal</p>
+        </div>
     </section>
 
     <section>
         <h2>Graphiques :</h2>
-        <!-- Insérez les éléments de graphique ici (ex. balises canvas pour les bibliothèques de graphiques) -->
+        <div>
+            <canvas id="consumptionChart"></canvas>
+        </div>
     </section>
 
     <script>
@@ -46,10 +53,82 @@ renderMenuToHTML($currentPage);
             });
         }
 
+        function getConsumptionData() {
+    const url = api_url + '/consommation/userspecifique?id=' + userId;
+    $.ajax({
+        url: url,
+        type: 'GET',
+        dataType: 'json',
+    }).done(function(response) {
+        let consumptionData = [];
+        let recommendationData = [];
+        let labels = [];
 
-        getUserByID();
-    </script>
+        const currentDate = new Date();
+        for (let i = 6; i >= 0; i--) {
+            const pastDate = new Date(currentDate.getTime() - (i * 24 * 60 * 60 * 1000));
+            const pastDateString = pastDate.toISOString().slice(0, 10);
+            labels.push(pastDateString);
+
+            const dailyData = response.find(d => d.date === pastDateString);
+            consumptionData.push(dailyData ? dailyData.consomme : 0);
+            recommendationData.push(dailyData ? dailyData.recommande : 0);
+        }
+
+        displayIndicators(consumptionData, recommendationData);
+        displayConsumptionChart(labels, consumptionData, recommendationData);
+    }).fail(function(error) {
+        alert("La requête s'est terminée en échec. Infos : " + JSON.stringify(error));
+    });
+}
+        function displayIndicators(consumptionData, recommendationData) {
+            let totalConsumption = consumptionData.reduce((a, b) => a + b, 0);
+            let avgConsumption = totalConsumption / consumptionData.length;
+            let recommendedIntake = recommendationData[0]; // Supposons que la recommandation soit la même pour tous les jours
+
+            $('#total-consumption').text(totalConsumption.toFixed(2));
+            $('#avg-consumption').text(avgConsumption.toFixed(2));
+            $('#recommended-intake').text(recommendedIntake.toFixed(2));
+    }
+
+    function displayConsumptionChart(labels, consumptionData, recommendationData) {
+        const ctx = document.getElementById('consumptionChart').getContext('2d');
+        const chart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: labels,
+                datasets: [
+                    {
+                        label: 'Consommation',
+                        data: consumptionData,
+                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                        borderColor: 'rgba(75, 192, 192, 1)',
+                        borderWidth: 2,
+                        tension: 0.1
+                    },
+                    {
+                        label: 'Recommandation',
+                        data: recommendationData,
+                        backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                        borderColor: 'rgba(255, 99, 132, 1)',
+                        borderWidth: 2,
+                        tension: 0.1
+                    }
+                ]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    }
+
+    getUserByID();
+    getConsumptionData();
+</script>
 
 </body>
-
 </html>
