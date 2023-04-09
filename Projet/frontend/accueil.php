@@ -40,6 +40,7 @@ renderMenuToHTML($currentPage);
         let api_url = "<?php echo $API_LINK ?>";
         let userId = <?php echo $user_id ?>;
         let date = new Date().toISOString().slice(0, 10);
+
         function getUserByID() {
             $.ajax({
                 url: api_url + '/utilisateurs?id=' + userId,
@@ -52,54 +53,71 @@ renderMenuToHTML($currentPage);
             });
         }
 
-        function getConsumptionData() {
-    const url = api_url + '/consommation/userspecifique?id=' + userId;
-    $.ajax({
-        url: url,
-        type: 'GET',
-        dataType: 'json',
-    }).done(function(response) {
-        console.log("API response:", response);
+        function getSevenLastConsumptions() {
+            let endDate = new Date().toISOString().slice(0, 10); // Today's date
+            let startDate = new Date();
+            startDate.setDate(startDate.getDate() - 6); // 6 days ago
+            startDate = startDate.toISOString().slice(0, 10);
 
-        let consumptionData = [];
-        let recommendationData = [];
-        let labels = [];
+            let requests = [];
+            let dates = [];
+            let dailyRecommendation = 2000;
 
-        const currentDate = new Date();
-        for (let i = 6; i >= 0; i--) {
-            const pastDate = new Date(currentDate.getTime() - (i * 24 * 60 * 60 * 1000));
-            const pastDateString = pastDate.toISOString().slice(0, 10);
-            labels.push(pastDateString);
+            for (let i = 0; i < 7; i++) {
+                let date = new Date(startDate);
+                date.setDate(date.getDate() + i);
+                dates.push(date.toISOString().slice(0, 10));
 
-            // Trouver les données pour la date actuelle en utilisant la propriété DATE
-            const dailyData = response.find(d => d.DATE === pastDateString);
-            console.log("Daily data for", pastDateString, dailyData);
-            if (dailyData) {
-                consumptionData.push(dailyData ? parseFloat(dailyData.QUANTITE) : 0);
-                recommendationData.push(dailyData ? parseFloat(dailyData.ID_ALIMENT) : 0);
-            } else {
-                consumptionData.push(0);
-                recommendationData.push(0);
+                requests.push(
+                    $.ajax({
+                        url: api_url + '/consommations/calories?id=' + userId + '&date=' + dates[i],
+                        type: 'GET',
+                        dataType: 'json',
+                    })
+                );
             }
-        }
-        console.log("labels:", labels);
-        console.log("consumptionData:", consumptionData);
-        console.log("recommendationData:", recommendationData);
 
-        displayIndicators(consumptionData, recommendationData);
-        displayConsumptionChart(labels, consumptionData, recommendationData);
-    }).fail(function(error) {
-        alert("La requête s'est terminée en échec. Infos : " + JSON.stringify(error));
-    });
-}
+            $.ajax({
+                url: api_url + '/recommandations/calories?id=' + userId,
+                type: 'GET',
+                dataType: 'json',
+            }).done(function (response) {
+                dailyRecommendation = response.APPORT_CALORIQUE_JOURNALIER;
+                $.when.apply($, requests).done(function () {
+                    let consumptionData = [];
+                    let labels = [];
+
+                    for (let i = 0; i < 7; i++) {
+                        let response = arguments[i][0];
+                        if (response && response.total_calories) {
+                            consumptionData.push(parseFloat(response.total_calories));
+                            labels.push(dates[i]);
+                        } else if (response && response.consomations && response.consomations.length > 0) {
+                            consumptionData.push(response.consomations[0].calories);
+                            labels.push(dates[i]);
+                        } else {
+                            console.error('Error: Unexpected response format for date', dates[i], response);
+                        }
+                    }
+
+                    displayIndicators(consumptionData, dailyRecommendation);
+                    displayConsumptionChart(labels, consumptionData, dailyRecommendation);
+                }).fail(function (error) {
+                    alert("La requête s'est terminée en échec. Infos : " + JSON.stringify(error));
+                });
+            }).fail(function (error) {
+                console.log("La requête s'est terminée en échec. Infos : " + JSON.stringify(error));
+            });
+        }
+
         function displayIndicators(consumptionData, recommendationData) {
             let totalConsumption = consumptionData.reduce((a, b) => a + b, 0);
             let avgConsumption = totalConsumption / consumptionData.length;
-            let recommendedIntake = recommendationData[0];
+            let recommendedIntake = recommendationData;
 
             $('#total-consumption').text(totalConsumption.toFixed(2));
             $('#avg-consumption').text(avgConsumption.toFixed(2));
-            $('#recommended-intake').text(recommendedIntake.toFixed(2));
+            $('#recommended-intake').text(recommendedIntake);
         }
 
         function displayConsumptionChart(labels, consumptionData, recommendationData) {
@@ -119,7 +137,7 @@ renderMenuToHTML($currentPage);
                         },
                         {
                             label: 'Recommandation',
-                            data: recommendationData,
+                            data: new Array(consumptionData.length).fill(recommendationData),
                             backgroundColor: 'rgba(255, 99, 132, 0.2)',
                             borderColor: 'rgba(255, 99, 132, 1)',
                             borderWidth: 2,
@@ -136,9 +154,8 @@ renderMenuToHTML($currentPage);
                 }
             });
         }
-
         getUserByID();
-        getConsumptionData();
+        getSevenLastConsumptions();
     </script>
 
 </body>
