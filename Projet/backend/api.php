@@ -147,7 +147,7 @@ if ($method == 'POST') {
             break;
         case '/consommations':
             $data = json_decode(utf8_encode(file_get_contents('php://input')), true);
-            $consommation = createConsommation($data['id_utilisateur'], $data['id_aliment'], $data['quantite'], $data['date'], $data['heure']);
+            $consommation = createConsommation( $data['id_aliment'],$data['id_utilisateur'], $data['quantite'], $data['date'], $data['heure']);
             if ($consommation) {
                 header('HTTP/1.1 201 Created');
                 echo json_encode($consommation);

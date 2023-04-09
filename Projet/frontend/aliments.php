@@ -1,11 +1,18 @@
 <?php
+session_start();
 require_once 'templates/template_header.php';
 require_once 'templates/template_menu.php';
+require_once 'config.php';
 
+if (!isset($_SESSION['ID_UTILISATEUR'])) {
+    header("Location: ../login.php");
+    exit;
+}
+
+$user_id = $_SESSION['ID_UTILISATEUR'];
 
 $currentPage = 'aliments';
 renderMenuToHTML($currentPage);
-
 ?>
 
 
@@ -42,20 +49,15 @@ renderMenuToHTML($currentPage);
 </body>
 <script>
     $(document).ready(function () {
-        <?php require_once("config.php") ?>
         let api_url = "<?php echo $API_LINK ?>";
-
-        let userId = 36;
-        console.log("ready");
-        // récupérer les aliments depuis la base de données et les ajouter à la liste déroulante
+        let userId = <?php echo $user_id ?>;
         $.ajax({
             url: api_url + '/aliments',
             type: 'GET',
             dataType: 'json'
         }).done(function (response) {
-            console.log("ok");
             for (var i = 0; i < response.length; i++) {
-                $('#aliment').append('<option value="' + response[i].id_aliment + '">' + response[i].LIBELLE_ALIMENT + '</option>');
+                $('#aliment').append('<option value="' + response[i].ID_ALIMENT + '">' + response[i].LIBELLE_ALIMENT + '</option>');
             }
         }).fail(function (error) {
             alert("La requête s'est terminée en échec. Infos : " + JSON.stringify(error));
@@ -70,6 +72,11 @@ renderMenuToHTML($currentPage);
             var quantite = $('#quantite').val();
             var date = $('#date').val();
             var heure = $('#heure').val();
+            console.log("idaliemnt = " + id_aliment);
+            console.log("quantite = " + quantite);
+            console.log("date = " + date);
+            console.log("heure = " + heure);
+            console.log("userID = " + userId);
 
             // envoyer la requête AJAX pour créer la consommation
             $.ajax({
@@ -77,18 +84,18 @@ renderMenuToHTML($currentPage);
                 type: 'POST',
                 dataType: 'json',
                 data: JSON.stringify({
+
                     id_aliment: id_aliment,
-                    id_utilisateur: userId, // vous devez définir userId quelque part
+                    id_utilisateur: userId,
                     quantite: quantite,
                     date: date,
                     heure: heure
                 }),
                 contentType: 'application/json'
             }).done(function (response) {
-                // mise à jour de la table de consommation avec les données récemment ajoutées
-                getUserConsommation();
+                console.log(response);
             }).fail(function (error) {
-                alert("La requête s'est terminée en échec. Infos : " + JSON.stringify(error));
+                console.log("La requête s'est terminée en échec. Infos : " + JSON.stringify(error));
             });
         });
     });
