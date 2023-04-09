@@ -65,18 +65,18 @@ renderMenuToHTML($currentPage);
         let recommendationData = [];
         let labels = [];
 
-                const currentDate = new Date();
-                for (let i = 6; i >= 0; i--) {
-                    const pastDate = new Date(currentDate.getTime() - (i * 24 * 60 * 60 * 1000));
-                    const pastDateString = pastDate.toISOString().slice(0, 10);
-                    labels.push(pastDateString);
+        const currentDate = new Date();
+        for (let i = 6; i >= 0; i--) {
+            const pastDate = new Date(currentDate.getTime() - (i * 24 * 60 * 60 * 1000));
+            const pastDateString = pastDate.toISOString().slice(0, 10);
+            labels.push(pastDateString);
 
             // Trouver les données pour la date actuelle en utilisant la propriété DATE
             const dailyData = response.find(d => d.DATE === pastDateString);
             console.log("Daily data for", pastDateString, dailyData);
             if (dailyData) {
-                consumptionData.push(dailyData.consomme);
-                recommendationData.push(dailyData.recommande);
+                consumptionData.push(dailyData ? parseFloat(dailyData.QUANTITE) : 0);
+                recommendationData.push(dailyData ? parseFloat(dailyData.ID_ALIMENT) : 0);
             } else {
                 consumptionData.push(0);
                 recommendationData.push(0);
