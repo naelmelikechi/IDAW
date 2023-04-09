@@ -60,6 +60,8 @@ renderMenuToHTML($currentPage);
         type: 'GET',
         dataType: 'json',
     }).done(function(response) {
+        console.log("API response:", response);
+
         let consumptionData = [];
         let recommendationData = [];
         let labels = [];
@@ -70,10 +72,20 @@ renderMenuToHTML($currentPage);
             const pastDateString = pastDate.toISOString().slice(0, 10);
             labels.push(pastDateString);
 
-            const dailyData = response.find(d => d.date === pastDateString);
-            consumptionData.push(dailyData ? dailyData.consomme : 0);
-            recommendationData.push(dailyData ? dailyData.recommande : 0);
+            // Trouver les données pour la date actuelle en utilisant la propriété DATE
+            const dailyData = response.find(d => d.DATE === pastDateString);
+            console.log("Daily data for", pastDateString, dailyData);
+            if (dailyData) {
+                consumptionData.push(dailyData.consomme);
+                recommendationData.push(dailyData.recommande);
+            } else {
+                consumptionData.push(0);
+                recommendationData.push(0);
+            }
         }
+        console.log("labels:", labels);
+        console.log("consumptionData:", consumptionData);
+        console.log("recommendationData:", recommendationData);
 
         displayIndicators(consumptionData, recommendationData);
         displayConsumptionChart(labels, consumptionData, recommendationData);
