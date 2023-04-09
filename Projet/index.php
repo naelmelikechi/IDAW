@@ -10,10 +10,15 @@
 
 </head>
 
+<header>
+    <div class="header-container">
+        <h1 class="site-title">iMangerMieux</h1>
+    </div>
+</header>
+
+
 <body>
-    <?php require_once("frontend/config.php");
-    require_once 'frontend/templates/template_header.php';
-    require_once 'frontend/templates/template_menu.php'; ?>
+    <?php require_once("frontend/config.php"); ?>
     <h1>Connexion</h1>
     <form id="login-form" method="POST">
         <label for="email">Adresse email :</label>
@@ -48,11 +53,8 @@
             e.preventDefault();
             let email = $('#email').val();
             let password = $('#password').val();
-            // console.log(email);
-            // console.log(password);
             loginUser(email, password);
         });
-        // loginUser("test@gmail.com", "test")
 
 
     });

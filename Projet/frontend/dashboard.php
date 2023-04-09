@@ -5,12 +5,14 @@ require_once 'templates/template_menu.php';
 require_once 'config.php';
 
 if (!isset($_SESSION['ID_UTILISATEUR'])) {
-    header("Location: index.php");
+    header("Location: ../login.php");
     exit;
 }
 
 $user_id = $_SESSION['ID_UTILISATEUR'];
-$API_LINK = $API_LINK;
+
+$currentPage = 'dashboard';
+renderMenuToHTML($currentPage);
 ?>
 
 <!DOCTYPE html>
@@ -22,26 +24,22 @@ $API_LINK = $API_LINK;
     <script src="https://code.jquery.com/jquery-3.4.1.min.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css">
     <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
-    <link rel="stylesheet" href="css/dashboard.css">
 </head>
 
 <body>
-    <?php
-    $currentPage = 'dashboard';
-    renderMenuToHTML($currentPage);
-    ?>
+
     <h1>Dashboard de vos consommations</h1>
     <h2 id="welcome-message">Bonjour</h2>
     <div class="date-container">
         <label for="date-selector">Sélectionnez une date :</label>
         <input type="date" id="date-selector">
     </div>
-
     <div class="progress-container">
         <div class="progress-label">Calories consommées</div>
         <progress id="progress" max="100" value="0"></progress>
         <div class="progress-value"><span id="consumed">0</span> / <span id="recommended">0</span> kcal</div>
     </div>
+    <br>
     <table id="consommations-table" class="display">
         <thead>
             <tr>

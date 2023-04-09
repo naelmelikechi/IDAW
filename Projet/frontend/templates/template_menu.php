@@ -2,7 +2,7 @@
 function renderMenuToHTML($currentPage){
     echo "<div class='conteneur-flex ligne'>";
     $mymenu = array(
-        'index' => array('Accueil', 'accueil.php'),
+        'accueil' => array('Accueil', 'accueil.php'),
         'aliments' => array('Aliments', 'aliments.php'),
         'journal' =>  array('Profil', 'profil.php'), 
         'dashboard' => array('Dashboard', 'dashboard.php'),
