@@ -52,7 +52,7 @@ renderMenuToHTML($currentPage);
         </thead>
     </table>
     <form id="edit-conso-form" style="display: none;">
-        <h2>Modifier un utilisateur</h2>
+        <h2>Modifier une consommation</h2>
         <input type="hidden" id="idConso" name="idConso">
         <input type="hidden" id="idAlim" name="idAlim">
         <input type="hidden" id="idUser" name="idUser">
@@ -237,6 +237,12 @@ renderMenuToHTML($currentPage);
                 var quantite = $('#quantite').val();
                 var date = $('#date').val();
                 var heure = $('#heure').val();
+                console.log(id_conso);
+                console.log(id_alim);
+                console.log(id_user);
+                console.log(quantite);
+                console.log(date);
+                console.log(heure);
 
                 editconsoByID(id_conso, id_alim, id_user, quantite, date, heure);
             });
