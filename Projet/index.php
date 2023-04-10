@@ -47,6 +47,8 @@
                 window.location.href = 'frontend/accueil.php';
             }).fail(function (error) {
                 console.log("La requête s'est terminée en échec. Infos : " + JSON.stringify(error));
+                    $('#error-message').text('Identifiants de connexion incorrects. Veuillez réessayer').css('color', 'red');
+                
             });
         }
 

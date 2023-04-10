@@ -7,7 +7,7 @@ Le projet iMangerMieux (iMM) consiste à réaliser une application Web permettan
 
 ## Utilisation
 
-Pour utiliser cette plateforme, nous avons crée un utilisateur dont voici lees informations de connexion :
+Pour utiliser cette plateforme, nous avons créé un utilisateur dont voici les informations de connexion :
 
 - Adresse email : `luc.fabresse@imt-nord-europe.fr`
 - Mot de passe : `zH9sM3nC1vTq`

@@ -46,6 +46,7 @@ Le backend est constitué du code PHP qui reçoit des requêtes HTTP et retourne
 
 ### Recommandations de calories
 - `GET /recommandations/calories?id=<user_id>` - Obtenir la recommandation de calories pour un utilisateur par ID utilisateur
+- `GET /recommandations/nutriments?id=<user_id>` - Obtenir la recommandation en nutriments pour un utilisateur par ID utilisateur
 
 ### Connexion
 - `GET /login?email=<email>&password=<password>` - Authentifier un utilisateur avec son adresse e-mail et son mot de passe
