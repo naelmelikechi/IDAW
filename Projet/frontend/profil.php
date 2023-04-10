@@ -32,6 +32,10 @@ renderMenuToHTML($currentPage);
             <p>Niveau d'activité sportive : <span id="user-niveau_activite_sportive"></span></p>
         </div>
     </section>
+    <section id="calories-recommendation">
+        <h3>Apport calorique journalier recommandé</h3>
+        <p><span id="recommended-calories" style="color: blue;"></span> kcal</p>
+    </section>
     <section id="nutriments-recommendations">
     <h3>Recommandations en nutriments</h3>
     <table id="nutriments-table">
@@ -67,6 +71,17 @@ renderMenuToHTML($currentPage);
                 alert("La requête s'est terminée en échec. Infos : " + JSON.stringify(error));
             });
         }
+        function getCaloriesRecommendation() {
+            $.ajax({
+                url: api_url + '/recommandations/calories?id=' + userId,
+                type: 'GET',
+                dataType: 'json',
+            }).done(function (response) {
+                $('#recommended-calories').text(response.APPORT_CALORIQUE_JOURNALIER);
+            }).fail(function (error) {
+                alert("La requête s'est terminée en échec. Infos : " + JSON.stringify(error));
+            });
+        }
         function getNutrimentsRecommendations() {
     $.ajax({
         url: api_url + '/recommandations/nutriments?id=' + userId,
@@ -74,10 +89,12 @@ renderMenuToHTML($currentPage);
         dataType: 'json',
     }).done(function (response) {
         let nutrimentsTableBody = $('#nutriments-table tbody');
-        response.forEach(function (nutriment) {
+        let colors = ["red", "green", "darkorange"];
+        response.forEach(function (nutriment, index) {
+            let color = colors[index % colors.length];
             let newRow = `<tr>
                             <td>${nutriment.LIBELLE_NUTRIMENT}</td>
-                            <td>${nutriment.QUANTITE_JOURNALIERE}</td>
+                            <td style="color: ${color};">${nutriment.QUANTITE_JOURNALIERE}</td>
                           </tr>`;
             nutrimentsTableBody.append(newRow);
         });
@@ -88,6 +105,7 @@ renderMenuToHTML($currentPage);
         
 
         getUserByID();
+        getCaloriesRecommendation();
         getNutrimentsRecommendations();
     </script>
 </body>
