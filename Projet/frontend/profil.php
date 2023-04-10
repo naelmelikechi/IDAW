@@ -32,6 +32,19 @@ renderMenuToHTML($currentPage);
             <p>Niveau d'activité sportive : <span id="user-niveau_activite_sportive"></span></p>
         </div>
     </section>
+    <section id="nutriments-recommendations">
+    <h3>Recommandations en nutriments</h3>
+    <table id="nutriments-table">
+        <thead>
+            <tr>
+                <th>Nutriment</th>
+                <th>Quantité journalière recommandée</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+</section>
 
     <script>
         let api_url = "<?php echo $API_LINK ?>";
@@ -54,8 +67,28 @@ renderMenuToHTML($currentPage);
                 alert("La requête s'est terminée en échec. Infos : " + JSON.stringify(error));
             });
         }
+        function getNutrimentsRecommendations() {
+    $.ajax({
+        url: api_url + '/recommandations/nutriments?id=' + userId,
+        type: 'GET',
+        dataType: 'json',
+    }).done(function (response) {
+        let nutrimentsTableBody = $('#nutriments-table tbody');
+        response.forEach(function (nutriment) {
+            let newRow = `<tr>
+                            <td>${nutriment.LIBELLE_NUTRIMENT}</td>
+                            <td>${nutriment.QUANTITE_JOURNALIERE}</td>
+                          </tr>`;
+            nutrimentsTableBody.append(newRow);
+        });
+    }).fail(function (error) {
+        alert("La requête s'est terminée en échec. Infos : " + JSON.stringify(error));
+    });
+}
+        
 
         getUserByID();
+        getNutrimentsRecommendations();
     </script>
 </body>
 

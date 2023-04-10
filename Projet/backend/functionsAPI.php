@@ -278,6 +278,29 @@ function loginUser($email, $password)
     $user = $request->fetch(PDO::FETCH_OBJ);
     return ($user);
 }
+function getRecommandationNutrimentsByUserId($user_id)
+{
+    global $pdo;
+    $sql = "SELECT nutriments.LIBELLE_NUTRIMENT, recommandation.QUANTITE_JOURNALIERE
+            FROM recommandation
+            JOIN nutriments ON recommandation.ID_NUTRIMENT = nutriments.ID_NUTRIMENT
+            JOIN profil_recommandation ON recommandation.ID_PROFIL = profil_recommandation.ID_PROFIL
+            JOIN tranche_age ON profil_recommandation.TRANCHE_AGE = tranche_age.ID_TRANCHE_AGE
+            JOIN intervalle_poids ON profil_recommandation.POIDS = intervalle_poids.ID_INTERVALLE_POIDS
+            JOIN utilisateurs ON (
+                utilisateurs.SEXE = profil_recommandation.SEXE
+                AND utilisateurs.NIVEAU_ACTIVITE_SPORTIVE = profil_recommandation.NIVEAU_ACTIVITE_SPORTIVE
+            )
+            WHERE utilisateurs.ID_UTILISATEUR = :user_id
+            AND utilisateurs.AGE BETWEEN tranche_age.AGE_MINIMUM AND tranche_age.AGE_MAXIMUM
+            AND utilisateurs.POIDS BETWEEN intervalle_poids.POIDS_MINIMUM AND intervalle_poids.POIDS_MAXIMUM";
+    $request = $pdo->prepare($sql);
+    $request->bindParam(':user_id', $user_id, PDO::PARAM_INT);
+    $request->execute();
+    $result = $request->fetchAll(PDO::FETCH_ASSOC);
+
+    return $result;
+}
 
 
 ?>

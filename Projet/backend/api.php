@@ -110,6 +110,21 @@ if ($method == 'GET') {
                 echo json_encode(['error' => 'User ID parameter is missing']);
             }
             break;
+        
+            case '/recommandations/nutriments':
+                if (isset($_GET['id'])) {
+                    $recommandations = getRecommandationNutrimentsByUserId($_GET['id']);
+                    if ($recommandations) {
+                        echo json_encode($recommandations);
+                    } else {
+                        header('HTTP/1.1 404 Not Found');
+                        echo json_encode(['error' => 'Recommandations not found']);
+                    }
+                } else {
+                    header('HTTP/1.1 400 Bad Request');
+                    echo json_encode(['error' => 'User ID parameter is missing']);
+                }
+                break;
 
 
         default:
